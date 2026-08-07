@@ -1,140 +1,160 @@
 "use client";
 
 import PageContainer from "@/components/layout/PageContainer";
-import { ArrowRight, Bot, Check, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
+
+const aiTools = [
+  "OpenClaw",
+  "Claude",
+  "Codex",
+  "Cursor",
+  "Gemini",
+  "Perplexity",
+  "VS Code",
+  "ChatGPT",
+  "Grok",
+];
 
 export default function HeroSection() {
   return (
     <section
       id="top"
-      className="relative overflow-hidden pb-20 pt-36 sm:pt-40 lg:pb-28 lg:pt-44"
+      className="relative overflow-hidden bg-[#0c0c0c] pb-14 pt-[96px] sm:pt-[104px] lg:pt-[112px]"
     >
-      <div className="pointer-events-none absolute left-1/2 top-0 h-[520px] w-[850px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,111,77,0.12),transparent_68%)]" />
+      <div className="pointer-events-none absolute left-1/2 top-[70px] h-[430px] w-[700px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,100,74,0.08),transparent_68%)]" />
 
       <PageContainer className="relative">
-        <div className="mx-auto flex max-w-[850px] flex-col items-center text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-2 text-xs text-white/65"
-          >
-            <Sparkles size={13} className="text-[#ff7657]" />
-            One context layer for every AI tool
-          </motion.div>
-
+        <div className="mx-auto max-w-[720px] text-center">
           <motion.h1
-            initial={{ opacity: 0, y: 18 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.08, duration: 0.65 }}
-            className="max-w-[760px] text-balance text-[42px] font-semibold leading-[1.05] tracking-[-0.055em] text-white sm:text-[58px] lg:text-[72px]"
+            transition={{ duration: 0.55 }}
+            className="text-balance text-[32px] font-semibold leading-[1.03] tracking-[-0.05em] text-white sm:text-[40px] md:text-[46px] lg:text-[52px]"
           >
-            Your{" "}
-            <span className="inline-flex items-center text-[#ff7657]">
-              <Bot className="mr-2 size-[0.72em]" />
-              AI
-            </span>{" "}
-            doesn&apos;t talk to your other tools
+            Your <span className="text-[#ff6f52]">AI</span> doesn&apos;t talk to
+            <br className="hidden sm:block" /> your other tools
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.16, duration: 0.65 }}
-            className="mt-6 max-w-[620px] text-pretty text-base leading-7 text-white/48 sm:text-lg"
+            transition={{ delay: 0.08, duration: 0.55 }}
+            className="mx-auto mt-3 max-w-[520px] text-[12px] leading-5 text-white/42 sm:text-[13px]"
           >
-            Unabyss gives your AI agents one connected memory across every app,
-            file, conversation, and workflow.
+            Your complete context in every AI you use. Connect once and never
+            explain yourself to AI again.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.24, duration: 0.65 }}
-            className="mt-8 flex flex-col items-center gap-3 sm:flex-row"
+            transition={{ delay: 0.15, duration: 0.55 }}
+            className="mt-5"
           >
             <a
-              href="#pricing"
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-white px-6 text-sm font-medium text-black transition-all hover:bg-zinc-200"
+              href="https://app.unabyss.com"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex h-8 items-center gap-2 rounded-full bg-white px-4 text-[11px] font-medium text-black transition-transform duration-200 hover:scale-[1.03]"
             >
-              Get started
-              <ArrowRight size={15} />
+              Start free now
+              <ArrowRight size={13} />
             </a>
-
-            <span className="inline-flex items-center gap-2 text-xs text-white/40">
-              <Check size={14} />
-              Start free. No credit card required.
-            </span>
           </motion.div>
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 35, scale: 0.98 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ delay: 0.32, duration: 0.8 }}
-          className="relative mx-auto mt-16 max-w-[1020px]"
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.22, duration: 0.6 }}
+          className="mx-auto mt-6 max-w-[760px]"
         >
-          <div className="absolute -inset-1 rounded-[28px] bg-gradient-to-r from-[#ff7657]/20 via-white/5 to-blue-500/10 blur-2xl" />
+          <p className="mb-2 text-center text-[9px] uppercase tracking-[0.18em] text-white/20">
+            Works with
+          </p>
 
-          <div className="relative overflow-hidden rounded-[22px] border border-white/10 bg-[#141414] shadow-[0_40px_100px_rgba(0,0,0,0.6)]">
-            <div className="flex h-11 items-center border-b border-white/[0.07] px-4">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+            {aiTools.map((tool) => (
+              <span
+                key={tool}
+                className="text-[10px] font-medium text-white/35 transition-colors hover:text-white/70"
+              >
+                {tool}
+              </span>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 26, scale: 0.99 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ delay: 0.28, duration: 0.75 }}
+          className="relative mx-auto mt-7 max-w-[940px]"
+        >
+          <div className="absolute inset-x-[14%] -bottom-6 h-14 bg-[#ff6f52]/10 blur-[45px]" />
+
+          <div className="relative overflow-hidden rounded-[12px] border border-white/[0.08] bg-[#121212] shadow-[0_30px_80px_rgba(0,0,0,0.5)]">
+            <div className="flex h-8 items-center border-b border-white/[0.06] px-3">
               <div className="flex gap-1.5">
-                <span className="size-2.5 rounded-full bg-[#ff5f57]" />
-                <span className="size-2.5 rounded-full bg-[#febc2e]" />
-                <span className="size-2.5 rounded-full bg-[#28c840]" />
+                <span className="size-[7px] rounded-full bg-[#ff5f57]" />
+                <span className="size-[7px] rounded-full bg-[#febc2e]" />
+                <span className="size-[7px] rounded-full bg-[#28c840]" />
               </div>
 
-              <div className="mx-auto h-6 w-[42%] rounded-md border border-white/[0.06] bg-white/[0.025]" />
+              <div className="mx-auto h-4 w-[38%] rounded border border-white/[0.05] bg-white/[0.025]" />
             </div>
 
-            <div className="grid min-h-[370px] grid-cols-1 lg:grid-cols-[210px_1fr]">
-              <aside className="hidden border-r border-white/[0.07] p-4 lg:block">
-                <div className="mb-7 h-7 w-24 rounded-md bg-white/[0.07]" />
+            <div className="relative aspect-[1.85/1] overflow-hidden bg-[#171717]">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(255,255,255,0.03),transparent_50%)]" />
+
+              <div className="absolute left-0 top-0 hidden h-full w-[150px] border-r border-white/[0.05] bg-[#131313] p-3 md:block">
+                <div className="mb-5 h-4 w-20 rounded bg-white/[0.08]" />
 
                 <div className="space-y-2">
-                  {Array.from({ length: 6 }).map((_, index) => (
-                    <div
-                      key={index}
-                      className={`h-9 rounded-lg ${
-                        index === 1
-                          ? "bg-[#ff7657]/15"
-                          : "bg-white/[0.025]"
-                      }`}
-                    />
-                  ))}
+                  <div className="h-7 rounded bg-white/[0.03]" />
+                  <div className="h-7 rounded bg-[#ff6f52]/15" />
+                  <div className="h-7 rounded bg-white/[0.03]" />
+                  <div className="h-7 rounded bg-white/[0.03]" />
+                  <div className="h-7 rounded bg-white/[0.03]" />
                 </div>
-              </aside>
+              </div>
 
-              <div className="flex items-center justify-center p-6 sm:p-10">
-                <div className="w-full max-w-[540px] rounded-2xl border border-white/[0.08] bg-[#181818] p-5 shadow-2xl">
-                  <div className="mb-8 flex items-center justify-between">
-                    <div>
-                      <div className="h-3 w-24 rounded-full bg-white/20" />
-                      <div className="mt-2 h-2 w-40 rounded-full bg-white/[0.07]" />
+              <div className="flex h-full items-center justify-center p-5 md:pl-[172px]">
+                <div className="w-full max-w-[520px]">
+                  <div className="rounded-[10px] border border-white/[0.07] bg-[#1b1b1b] p-4">
+                    <div className="mb-5 flex items-center justify-between">
+                      <div>
+                        <div className="h-2.5 w-28 rounded bg-white/20" />
+                        <div className="mt-2 h-2 w-40 rounded bg-white/[0.06]" />
+                      </div>
+
+                      <div className="size-8 rounded-lg bg-[#ff6f52]/20" />
                     </div>
 
-                    <div className="size-9 rounded-xl bg-[#ff7657]/15" />
-                  </div>
+                    <div className="flex h-11 items-center rounded-lg border border-white/[0.06] bg-[#141414] px-3">
+                      <div className="h-2 w-[70%] rounded bg-white/[0.07]" />
 
-                  <div className="flex h-14 items-center rounded-xl border border-white/[0.08] bg-black/20 px-4">
-                    <div className="h-2.5 w-[70%] rounded-full bg-white/[0.08]" />
-                    <div className="ml-auto size-8 rounded-lg bg-white" />
-                  </div>
+                      <div className="ml-auto flex size-7 items-center justify-center rounded-md bg-white">
+                        <ArrowRight size={13} className="text-black" />
+                      </div>
+                    </div>
 
-                  <div className="mt-4 grid grid-cols-3 gap-3">
-                    {Array.from({ length: 3 }).map((_, index) => (
-                      <div
-                        key={index}
-                        className="h-20 rounded-xl border border-white/[0.06] bg-white/[0.025]"
-                      />
-                    ))}
+                    <div className="mt-3 grid grid-cols-3 gap-2">
+                      <div className="h-16 rounded-lg border border-white/[0.05] bg-white/[0.025]" />
+                      <div className="h-16 rounded-lg border border-white/[0.05] bg-white/[0.025]" />
+                      <div className="h-16 rounded-lg border border-white/[0.05] bg-white/[0.025]" />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </motion.div>
+
+        <div className="mt-5 text-center">
+          <span className="text-[10px] text-white/25">800,000+ items synced</span>
+        </div>
       </PageContainer>
     </section>
   );
