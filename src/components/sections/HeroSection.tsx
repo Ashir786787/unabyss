@@ -1,6 +1,7 @@
 "use client";
 
 import PageContainer from "@/components/layout/PageContainer";
+import HeroWorkspacePreview from "@/components/visuals/HeroWorkspacePreview";
 import { ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 
@@ -30,9 +31,9 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55 }}
-            className="text-balance text-[32px] font-semibold leading-[1.03] tracking-[-0.05em] text-white sm:text-[40px] md:text-[46px] lg:text-[52px]"
+            className="text-balance text-[34px] font-semibold leading-[1.03] tracking-[-0.05em] text-white sm:text-[42px] md:text-[48px] lg:text-[54px]"
           >
-            Your <span className="text-[#ff6f52]">AI</span> doesn&apos;t talk to
+            Your <span className="text-[#ff7657]">AI</span> doesn&apos;t talk to
             <br className="hidden sm:block" /> your other tools
           </motion.h1>
 
@@ -40,10 +41,10 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.08, duration: 0.55 }}
-            className="mx-auto mt-3 max-w-[520px] text-[12px] leading-5 text-white/42 sm:text-[13px]"
+            className="mx-auto mt-3 max-w-[520px] text-[11px] leading-5 text-white/38 sm:text-[12px]"
           >
-            Your complete context in every AI you use. Connect once and never
-            explain yourself to AI again.
+            Connect your tools once and give every AI access to the context it
+            needs, without repeating yourself again.
           </motion.p>
 
           <motion.div
@@ -86,71 +87,7 @@ export default function HeroSection() {
           </div>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 26, scale: 0.99 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ delay: 0.28, duration: 0.75 }}
-          className="relative mx-auto mt-7 max-w-[940px]"
-        >
-          <div className="absolute inset-x-[14%] -bottom-6 h-14 bg-[#ff6f52]/10 blur-[45px]" />
-
-          <div className="relative overflow-hidden rounded-[12px] border border-white/[0.08] bg-[#121212] shadow-[0_30px_80px_rgba(0,0,0,0.5)]">
-            <div className="flex h-8 items-center border-b border-white/[0.06] px-3">
-              <div className="flex gap-1.5">
-                <span className="size-[7px] rounded-full bg-[#ff5f57]" />
-                <span className="size-[7px] rounded-full bg-[#febc2e]" />
-                <span className="size-[7px] rounded-full bg-[#28c840]" />
-              </div>
-
-              <div className="mx-auto h-4 w-[38%] rounded border border-white/[0.05] bg-white/[0.025]" />
-            </div>
-
-            <div className="relative aspect-[1.85/1] overflow-hidden bg-[#171717]">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(255,255,255,0.03),transparent_50%)]" />
-
-              <div className="absolute left-0 top-0 hidden h-full w-[150px] border-r border-white/[0.05] bg-[#131313] p-3 md:block">
-                <div className="mb-5 h-4 w-20 rounded bg-white/[0.08]" />
-
-                <div className="space-y-2">
-                  <div className="h-7 rounded bg-white/[0.03]" />
-                  <div className="h-7 rounded bg-[#ff6f52]/15" />
-                  <div className="h-7 rounded bg-white/[0.03]" />
-                  <div className="h-7 rounded bg-white/[0.03]" />
-                  <div className="h-7 rounded bg-white/[0.03]" />
-                </div>
-              </div>
-
-              <div className="flex h-full items-center justify-center p-5 md:pl-[172px]">
-                <div className="w-full max-w-[520px]">
-                  <div className="rounded-[10px] border border-white/[0.07] bg-[#1b1b1b] p-4">
-                    <div className="mb-5 flex items-center justify-between">
-                      <div>
-                        <div className="h-2.5 w-28 rounded bg-white/20" />
-                        <div className="mt-2 h-2 w-40 rounded bg-white/[0.06]" />
-                      </div>
-
-                      <div className="size-8 rounded-lg bg-[#ff6f52]/20" />
-                    </div>
-
-                    <div className="flex h-11 items-center rounded-lg border border-white/[0.06] bg-[#141414] px-3">
-                      <div className="h-2 w-[70%] rounded bg-white/[0.07]" />
-
-                      <div className="ml-auto flex size-7 items-center justify-center rounded-md bg-white">
-                        <ArrowRight size={13} className="text-black" />
-                      </div>
-                    </div>
-
-                    <div className="mt-3 grid grid-cols-3 gap-2">
-                      <div className="h-16 rounded-lg border border-white/[0.05] bg-white/[0.025]" />
-                      <div className="h-16 rounded-lg border border-white/[0.05] bg-white/[0.025]" />
-                      <div className="h-16 rounded-lg border border-white/[0.05] bg-white/[0.025]" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
+        <HeroWorkspacePreview />
 
         <div className="mt-5 text-center">
           <span className="text-[10px] text-white/25">800,000+ items synced</span>

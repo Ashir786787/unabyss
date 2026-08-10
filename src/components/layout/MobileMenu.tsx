@@ -9,15 +9,15 @@ export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="lg:hidden">
+    <div className="relative lg:hidden">
       <button
         type="button"
         aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
         aria-expanded={isOpen}
         onClick={() => setIsOpen((current) => !current)}
-        className="flex size-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-white transition-colors hover:bg-white/[0.08]"
+        className="flex size-7 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.025] text-white/65"
       >
-        {isOpen ? <X size={18} /> : <Menu size={18} />}
+        {isOpen ? <X size={13} /> : <Menu size={13} />}
       </button>
 
       <AnimatePresence>
@@ -30,15 +30,15 @@ export default function MobileMenu() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 top-[73px] z-40 bg-black/70 backdrop-blur-sm"
+              className="fixed inset-0 z-40 bg-black/80 backdrop-blur-sm"
             />
 
             <motion.div
-              initial={{ opacity: 0, y: -12, scale: 0.98 }}
+              initial={{ opacity: 0, y: -8, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -12, scale: 0.98 }}
-              transition={{ duration: 0.2 }}
-              className="absolute inset-x-5 top-[82px] z-50 overflow-hidden rounded-2xl border border-white/10 bg-[#151515] p-3 shadow-2xl"
+              exit={{ opacity: 0, y: -8, scale: 0.98 }}
+              transition={{ duration: 0.18 }}
+              className="fixed left-4 right-4 top-14 z-50 rounded-[14px] border border-white/[0.08] bg-[#111111] p-3 shadow-2xl"
             >
               <nav className="flex flex-col">
                 {navigationItems.map((item) => (
@@ -46,26 +46,30 @@ export default function MobileMenu() {
                     key={item.label}
                     href={item.href}
                     onClick={() => setIsOpen(false)}
-                    className="rounded-xl px-4 py-3 text-sm text-white/70 transition-colors hover:bg-white/[0.05] hover:text-white"
+                    className="rounded-[9px] px-3 py-2.5 text-[11px] text-white/55 transition-colors hover:bg-white/[0.04] hover:text-white"
                   >
                     {item.label}
                   </a>
                 ))}
               </nav>
 
-              <div className="mt-3 grid grid-cols-2 gap-2 border-t border-white/10 pt-3">
+              <div className="mt-3 grid grid-cols-2 gap-2 border-t border-white/[0.06] pt-3">
                 <a
-                  href="#login"
-                  className="flex h-10 items-center justify-center rounded-full border border-white/10 text-sm font-medium text-white/80"
+                  href="https://app.unabyss.com/login"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex h-9 items-center justify-center rounded-full border border-white/[0.08] text-[10px] text-white/60"
                 >
                   Log in
                 </a>
 
                 <a
-                  href="#pricing"
-                  className="flex h-10 items-center justify-center rounded-full bg-white text-sm font-medium text-black"
+                  href="https://app.unabyss.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex h-9 items-center justify-center rounded-full bg-white text-[10px] font-medium text-black"
                 >
-                  Get started
+                  Start free
                 </a>
               </div>
             </motion.div>
