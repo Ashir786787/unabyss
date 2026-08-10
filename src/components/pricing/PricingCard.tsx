@@ -1,7 +1,4 @@
-import {
-  BillingPeriod,
-  PricingPlan,
-} from "@/data/pricing";
+import { BillingPeriod, PricingPlan } from "@/data/pricing";
 import { ArrowRight, Check } from "lucide-react";
 
 type PricingCardProps = {

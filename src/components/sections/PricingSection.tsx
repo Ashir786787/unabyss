@@ -2,10 +2,7 @@
 
 import PageContainer from "@/components/layout/PageContainer";
 import PricingCard from "@/components/pricing/PricingCard";
-import {
-  BillingPeriod,
-  pricingPlans,
-} from "@/data/pricing";
+import { BillingPeriod, pricingPlans } from "@/data/pricing";
 import { motion } from "motion/react";
 import { useState } from "react";
 

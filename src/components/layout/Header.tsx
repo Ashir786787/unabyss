@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  ArrowUpRight,
-  ChevronDown,
-  LogIn,
-} from "lucide-react";
+import { ArrowUpRight, ChevronDown, LogIn } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import MobileMenu from "./MobileMenu";

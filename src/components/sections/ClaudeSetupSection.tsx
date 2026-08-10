@@ -1,7 +1,7 @@
 "use client";
 
 import PageContainer from "@/components/layout/PageContainer";
-import { ArrowRight, Check, Copy } from "lucide-react";
+import { Check, Copy, ExternalLink } from "lucide-react";
 import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
@@ -19,7 +19,10 @@ export default function ClaudeSetupSection() {
       if (copyTimeout.current) {
         clearTimeout(copyTimeout.current);
       }
-      copyTimeout.current = setTimeout(() => setCopied(false), 1600);
+
+      copyTimeout.current = setTimeout(() => {
+        setCopied(false);
+      }, 1600);
     } catch {
       setCopied(false);
     }
@@ -34,9 +37,11 @@ export default function ClaudeSetupSection() {
   }, []);
 
   return (
-    <section className="relative bg-[#0c0c0c] py-24 sm:py-28 lg:py-32">
-      <PageContainer>
-        <div className="mx-auto max-w-[860px]">
+    <section className="relative overflow-hidden bg-[#0c0c0c] py-28 sm:py-32 lg:py-36">
+      <div className="pointer-events-none absolute left-1/2 top-[46%] h-[520px] w-[760px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,111,82,0.055),transparent_68%)]" />
+
+      <PageContainer className="relative">
+        <div className="mx-auto max-w-[980px]">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -44,147 +49,214 @@ export default function ClaudeSetupSection() {
             transition={{ duration: 0.55 }}
             className="text-center"
           >
-            <p className="text-[10px] uppercase tracking-[0.22em] text-white/25">
+            <p className="text-[9px] uppercase tracking-[0.24em] text-white/18">
               Connect
             </p>
 
-            <h2 className="mt-4 text-balance text-[28px] font-semibold leading-[1.08] tracking-[-0.04em] text-white sm:text-[36px] lg:text-[42px]">
-              Add Unabyss to Claude in
-              <br className="hidden sm:block" /> two steps
+            <h2 className="mt-4 text-balance text-[30px] font-semibold leading-[1.03] tracking-[-0.045em] text-white sm:text-[40px] lg:text-[48px]">
+              Add Unabyss to Claude
+              <br className="hidden sm:block" /> in two steps
             </h2>
 
-            <p className="mx-auto mt-4 max-w-[570px] text-[12px] leading-5 text-white/38 sm:text-[13px]">
-              Unabyss is an official connector in Claude&apos;s directory.
-              Add it in one click, send one message, and every conversation
-              pulls your real context.
+            <p className="mx-auto mt-5 max-w-[610px] text-[11px] leading-5 text-white/32 sm:text-[12px]">
+              Add Unabyss from Claude&apos;s connector directory, then send one
+              message to finish setup.
             </p>
           </motion.div>
 
-          <div className="mt-12 grid gap-5 lg:grid-cols-2">
+          <div className="mt-14 grid gap-5 lg:grid-cols-2">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -18 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.55 }}
-              className="rounded-[16px] border border-white/[0.07] bg-[#121212] p-5 sm:p-6"
+              className="overflow-hidden rounded-[18px] border border-white/[0.07] bg-[#111111]"
             >
-              <div className="flex items-center gap-3">
-                <span className="flex size-7 items-center justify-center rounded-full bg-[#ff6f52] text-[11px] font-semibold text-white">
-                  1
-                </span>
+              <div className="flex items-center justify-between border-b border-white/[0.06] px-5 py-4">
+                <div className="flex items-center gap-3">
+                  <span className="flex size-7 items-center justify-center rounded-full bg-[#ff7657] text-[10px] font-semibold text-white">
+                    1
+                  </span>
 
-                <span className="text-[11px] font-medium text-white/40">
-                  Connect Claude to Unabyss
-                </span>
-              </div>
+                  <div>
+                    <p className="text-[10px] font-medium text-white/60">
+                      Connect Claude
+                    </p>
 
-              <div className="mt-6 rounded-[14px] border border-white/[0.07] bg-[#171717] p-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="flex size-9 items-center justify-center rounded-[10px] bg-[#ff6f52] text-[11px] font-bold text-white">
-                      U
-                    </div>
-
-                    <div>
-                      <p className="text-[12px] font-medium text-white">
-                        Unabyss
-                      </p>
-
-                      <p className="mt-0.5 text-[10px] text-white/30">
-                        Official connector
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-1 text-[9px] text-emerald-400">
-                    <Check size={11} />
-                    Verified
+                    <p className="mt-0.5 text-[8px] text-white/20">
+                      Add Unabyss from connectors
+                    </p>
                   </div>
                 </div>
 
-                <p className="mt-5 text-[11px] leading-5 text-white/38">
-                  Finish signing up and onboarding right inside Claude.
-                </p>
-
-                <a
-                  href="https://claude.ai"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-5 flex h-9 w-full items-center justify-center gap-2 rounded-[9px] bg-[#d97757] text-[11px] font-medium text-white transition-colors hover:bg-[#e68161]"
-                >
-                  Connect
-                  <ArrowRight size={13} />
-                </a>
+                <span className="rounded-full border border-emerald-400/15 bg-emerald-400/[0.06] px-2 py-1 text-[8px] text-emerald-400/75">
+                  Official
+                </span>
               </div>
 
-              <button
-                type="button"
-                className="mt-4 w-full rounded-[9px] border border-white/[0.07] bg-white/[0.025] px-4 py-2.5 text-[10px] text-white/40 transition-colors hover:bg-white/[0.05] hover:text-white/70"
-              >
-                Connect to a different agent
-              </button>
+              <div className="p-5">
+                <div className="overflow-hidden rounded-[13px] border border-white/[0.07] bg-[#161616]">
+                  <div className="flex h-9 items-center border-b border-white/[0.05] px-3">
+                    <div className="flex gap-1.5">
+                      <span className="size-[6px] rounded-full bg-[#ff5f57]" />
+                      <span className="size-[6px] rounded-full bg-[#febc2e]" />
+                      <span className="size-[6px] rounded-full bg-[#28c840]" />
+                    </div>
+
+                    <span className="mx-auto text-[8px] text-white/18">
+                      Claude connectors
+                    </span>
+                  </div>
+
+                  <div className="p-4">
+                    <div className="flex items-center justify-between rounded-[11px] border border-white/[0.06] bg-[#1a1a1a] p-4">
+                      <div className="flex items-center gap-3">
+                        <div className="flex size-10 items-center justify-center rounded-[10px] bg-[#ff7657] text-[11px] font-bold text-white">
+                          U
+                        </div>
+
+                        <div>
+                          <p className="text-[11px] font-medium text-white/70">
+                            Unabyss
+                          </p>
+
+                          <p className="mt-1 text-[8px] text-white/22">
+                            Shared AI context
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-1.5 text-[8px] text-emerald-400/70">
+                        <Check size={10} />
+                        Verified
+                      </div>
+                    </div>
+
+                    <p className="mt-4 text-[9px] leading-4 text-white/28">
+                      Connect Unabyss to give Claude access to the same context
+                      you use across your tools.
+                    </p>
+
+                    <a
+                      href="https://claude.ai"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-5 flex h-9 w-full items-center justify-center gap-2 rounded-[9px] bg-[#d97757] text-[10px] font-medium text-white transition-colors hover:bg-[#e68161]"
+                    >
+                      Connect
+                      <ExternalLink size={11} />
+                    </a>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  className="mt-4 w-full rounded-[9px] border border-white/[0.06] bg-white/[0.02] px-4 py-2.5 text-[9px] text-white/30 transition-colors hover:bg-white/[0.04] hover:text-white/55"
+                >
+                  Connect to a different AI
+                </button>
+              </div>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: 18 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ delay: 0.08, duration: 0.55 }}
-              className="rounded-[16px] border border-white/[0.07] bg-[#121212] p-5 sm:p-6"
+              className="overflow-hidden rounded-[18px] border border-white/[0.07] bg-[#111111]"
             >
-              <div className="flex items-center gap-3">
-                <span className="flex size-7 items-center justify-center rounded-full border border-white/10 bg-white/[0.035] text-[11px] font-semibold text-white">
+              <div className="flex items-center gap-3 border-b border-white/[0.06] px-5 py-4">
+                <span className="flex size-7 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.025] text-[10px] font-semibold text-white/65">
                   2
                 </span>
 
-                <span className="text-[11px] font-medium text-white/40">
-                  Finish setup
-                </span>
-              </div>
-
-              <h3 className="mt-6 text-[17px] font-semibold tracking-[-0.025em] text-white">
-                Say hello to finish setup
-              </h3>
-
-              <p className="mt-2 max-w-[330px] text-[11px] leading-5 text-white/35">
-                Open a new chat in Claude and send this. Unabyss walks you
-                through the rest right there.
-              </p>
-
-              <div className="mt-6 rounded-[11px] border border-white/[0.07] bg-[#171717] p-3">
-                <div className="flex min-h-11 items-center gap-3 rounded-[8px] border border-white/[0.05] bg-[#111111] px-3">
-                  <span className="flex-1 text-[11px] text-white/55">
-                    {SETUP_MESSAGE}
-                  </span>
-
-                  <button
-                    type="button"
-                    onClick={handleCopy}
-                    aria-label="Copy setup message"
-                    className="flex size-8 items-center justify-center rounded-[7px] border border-white/[0.06] bg-white/[0.035] text-white/45 transition-colors hover:text-white"
-                  >
-                    {copied ? <Check size={13} /> : <Copy size={13} />}
-                  </button>
-                </div>
-
-                {copied && (
-                  <p className="mt-2 text-right text-[9px] text-emerald-400">
-                    Copied
+                <div>
+                  <p className="text-[10px] font-medium text-white/60">
+                    Finish setup
                   </p>
-                )}
+
+                  <p className="mt-0.5 text-[8px] text-white/20">
+                    Send one message in Claude
+                  </p>
+                </div>
               </div>
 
-              <a
-                href="https://claude.ai"
-                target="_blank"
-                rel="noreferrer"
-                className="mt-5 flex h-9 w-full items-center justify-center gap-2 rounded-[9px] bg-white text-[11px] font-medium text-black transition-colors hover:bg-zinc-200"
-              >
-                Continue in Claude
-                <ArrowRight size={13} />
-              </a>
+              <div className="p-5">
+                <div className="overflow-hidden rounded-[13px] border border-white/[0.07] bg-[#161616]">
+                  <div className="flex h-9 items-center border-b border-white/[0.05] px-3">
+                    <div className="flex gap-1.5">
+                      <span className="size-[6px] rounded-full bg-[#ff5f57]" />
+                      <span className="size-[6px] rounded-full bg-[#febc2e]" />
+                      <span className="size-[6px] rounded-full bg-[#28c840]" />
+                    </div>
+
+                    <span className="mx-auto text-[8px] text-white/18">
+                      Claude
+                    </span>
+                  </div>
+
+                  <div className="p-4">
+                    <p className="text-[13px] font-semibold tracking-[-0.02em] text-white/72">
+                      Say hello to finish setup
+                    </p>
+
+                    <p className="mt-2 text-[9px] leading-4 text-white/26">
+                      Start a new Claude conversation and send this message.
+                    </p>
+
+                    <div className="mt-5 rounded-[10px] border border-white/[0.06] bg-[#111111] p-3">
+                      <div className="flex min-h-11 items-center gap-3">
+                        <span className="flex-1 text-[10px] text-white/50">
+                          {SETUP_MESSAGE}
+                        </span>
+
+                        <button
+                          type="button"
+                          onClick={handleCopy}
+                          aria-label="Copy setup message"
+                          className="flex size-8 items-center justify-center rounded-[7px] border border-white/[0.06] bg-white/[0.025] text-white/35 transition-colors hover:text-white/60"
+                        >
+                          {copied ? (
+                            <Check size={12} className="text-emerald-400" />
+                          ) : (
+                            <Copy size={12} />
+                          )}
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="mt-3 min-h-[14px]">
+                      {copied && (
+                        <p className="text-right text-[8px] text-emerald-400/70">
+                          Copied
+                        </p>
+                      )}
+                    </div>
+
+                    <a
+                      href="https://claude.ai"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-2 flex h-9 w-full items-center justify-center gap-2 rounded-[9px] bg-white text-[10px] font-medium text-black transition-colors hover:bg-zinc-200"
+                    >
+                      Continue in Claude
+                      <ExternalLink size={11} />
+                    </a>
+                  </div>
+                </div>
+              </div>
             </motion.div>
           </div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.12, duration: 0.5 }}
+            className="mt-7 text-center text-[9px] text-white/18"
+          >
+            Setup takes less than a minute.
+          </motion.p>
         </div>
       </PageContainer>
     </section>
