@@ -1,6 +1,7 @@
 "use client";
 
 import PageContainer from "@/components/layout/PageContainer";
+import { fadeUp, fadeUpLarge, fadeUpMedium, viewportOnce, viewportQuarter } from "@/lib/animations";
 import {
   Brain,
   Check,
@@ -59,9 +60,10 @@ export default function SharedMemorySection() {
       <PageContainer className="relative">
         <div className="mx-auto max-w-[1000px]">
           <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportQuarter}
             transition={{ duration: 0.55 }}
             className="text-center"
           >
@@ -81,8 +83,9 @@ export default function SharedMemorySection() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            variants={fadeUpLarge}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true, amount: 0.15 }}
             transition={{ delay: 0.08, duration: 0.65 }}
             className="relative mt-14 grid gap-5 lg:grid-cols-[1fr_190px_1fr]"
@@ -204,9 +207,10 @@ export default function SharedMemorySection() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            variants={fadeUpMedium}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
             transition={{ delay: 0.12, duration: 0.55 }}
             className="mt-10 text-center"
           >

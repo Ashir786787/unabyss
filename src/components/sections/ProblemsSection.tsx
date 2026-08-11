@@ -1,6 +1,7 @@
 "use client";
 
 import PageContainer from "@/components/layout/PageContainer";
+import { fadeLeft, fadeRight, fadeUp, fadeUpMedium, viewportFifth, viewportOnce, viewportQuarter } from "@/lib/animations";
 import {
   Brain,
   FileText,
@@ -58,9 +59,10 @@ export default function ProblemsSection() {
       <PageContainer className="relative">
         <div className="mx-auto max-w-[980px]">
           <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportQuarter}
             transition={{ duration: 0.55 }}
             className="text-center"
           >
@@ -80,9 +82,10 @@ export default function ProblemsSection() {
 
           <div className="mt-14 grid gap-5 lg:grid-cols-2">
             <motion.div
-              initial={{ opacity: 0, x: -18 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
+              variants={fadeLeft}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportFifth}
               transition={{ duration: 0.55 }}
               className="overflow-hidden rounded-[18px] border border-white/[0.07] bg-[#111111]"
             >
@@ -172,9 +175,10 @@ export default function ProblemsSection() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 18 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
+              variants={fadeRight}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportFifth}
               transition={{ delay: 0.08, duration: 0.55 }}
               className="overflow-hidden rounded-[18px] border border-white/[0.07] bg-[#111111]"
             >
@@ -243,9 +247,10 @@ export default function ProblemsSection() {
           </div>
 
           <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            variants={fadeUpMedium}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
             transition={{ delay: 0.12, duration: 0.5 }}
             className="mt-9 text-center"
           >

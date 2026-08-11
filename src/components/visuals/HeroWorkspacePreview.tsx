@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowUp, ImageIcon, Sparkles } from "lucide-react";
+import { heroPreview } from "@/lib/animations";
 import { motion } from "motion/react";
 
 const thumbnails = [
@@ -14,8 +15,9 @@ const thumbnails = [
 export default function HeroWorkspacePreview() {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24, scale: 0.99 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
+      variants={heroPreview}
+      initial="hidden"
+      animate="visible"
       transition={{ delay: 0.26, duration: 0.75 }}
       className="relative mx-auto mt-10 max-w-[1040px]"
     >

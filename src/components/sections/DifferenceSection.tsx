@@ -1,6 +1,7 @@
 "use client";
 
 import PageContainer from "@/components/layout/PageContainer";
+import { fadeLeft, fadeRight, fadeUp, fadeUpSixteen, viewportFifth, viewportOnce, viewportQuarter } from "@/lib/animations";
 import { ArrowRight, Check, Search, Sparkles } from "lucide-react";
 import { motion } from "motion/react";
 
@@ -129,9 +130,10 @@ export default function DifferenceSection() {
       <PageContainer className="relative">
         <div className="mx-auto max-w-[980px]">
           <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportQuarter}
             transition={{ duration: 0.55 }}
             className="text-center"
           >
@@ -152,9 +154,10 @@ export default function DifferenceSection() {
 
           <div className="mt-14 grid gap-5 lg:grid-cols-2">
             <motion.div
-              initial={{ opacity: 0, x: -18 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
+              variants={fadeLeft}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportFifth}
               transition={{ duration: 0.55 }}
             >
               <div className="mb-3 flex items-center gap-2">
@@ -169,9 +172,10 @@ export default function DifferenceSection() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 18 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
+              variants={fadeRight}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportFifth}
               transition={{ delay: 0.08, duration: 0.55 }}
             >
               <div className="mb-3 flex items-center gap-2">
@@ -187,9 +191,10 @@ export default function DifferenceSection() {
           </div>
 
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            variants={fadeUpSixteen}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
             transition={{ delay: 0.12, duration: 0.55 }}
             className="mx-auto mt-16 max-w-[560px] text-center"
           >

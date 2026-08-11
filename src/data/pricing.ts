@@ -1,3 +1,8 @@
+import maxImage from "@/assets/pricing/max.png";
+import proImage from "@/assets/pricing/pro.png";
+import teamImage from "@/assets/pricing/team.png";
+import type { StaticImageData } from "next/image";
+
 export type BillingPeriod = "monthly" | "yearly";
 
 export type PricingPlan = {
@@ -7,30 +12,19 @@ export type PricingPlan = {
   yearlyPrice: number;
   features: string[];
   buttonLabel: string;
+  image: StaticImageData;
   highlighted?: boolean;
   badge?: string;
 };
 
 export const pricingPlans: PricingPlan[] = [
   {
-    name: "Free",
-    description: "Get started with shared AI context.",
-    monthlyPrice: 0,
-    yearlyPrice: 0,
-    buttonLabel: "Start free",
-    features: [
-      "Connect your essential tools",
-      "Shared context for AI",
-      "Basic memory access",
-      "Personal workspace",
-    ],
-  },
-  {
     name: "Pro",
     description: "For people using AI across their daily work.",
     monthlyPrice: 19,
     yearlyPrice: 15,
     buttonLabel: "Start with Pro",
+    image: proImage,
     highlighted: true,
     badge: "Most popular",
     features: [
@@ -47,6 +41,7 @@ export const pricingPlans: PricingPlan[] = [
     monthlyPrice: 49,
     yearlyPrice: 39,
     buttonLabel: "Get Max",
+    image: maxImage,
     features: [
       "Everything in Pro",
       "Higher context limits",
@@ -56,11 +51,12 @@ export const pricingPlans: PricingPlan[] = [
     ],
   },
   {
-    name: "Business",
+    name: "Team",
     description: "Shared context infrastructure for teams.",
     monthlyPrice: 99,
     yearlyPrice: 79,
     buttonLabel: "Contact sales",
+    image: teamImage,
     features: [
       "Everything in Max",
       "Team workspaces",

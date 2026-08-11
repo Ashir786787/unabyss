@@ -1,6 +1,7 @@
 "use client";
 
 import PageContainer from "@/components/layout/PageContainer";
+import { fadeUp, viewportQuarter } from "@/lib/animations";
 import { motion } from "motion/react";
 
 const statistics = [
@@ -27,9 +28,10 @@ export default function StatisticsSection() {
     <section className="relative bg-[#0c0c0c] py-20 sm:py-24 lg:py-28">
       <PageContainer>
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.25 }}
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportQuarter}
           transition={{ duration: 0.55 }}
           className="mx-auto max-w-[920px]"
         >

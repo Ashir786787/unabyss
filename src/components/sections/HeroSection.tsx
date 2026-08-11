@@ -1,7 +1,8 @@
 "use client";
 
 import PageContainer from "@/components/layout/PageContainer";
-import HeroWorkspacePreview from "@/components/visuals/HeroWorkspacePreview";
+import HeroVideoShowcase from "@/components/visuals/HeroVideoShowcase";
+import { fadeUp, fadeUpMedium } from "@/lib/animations";
 import { motion } from "motion/react";
 
 const aiTools = [
@@ -27,8 +28,9 @@ export default function HeroSection() {
       <PageContainer className="relative">
         <div className="mx-auto max-w-[980px] text-center">
           <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
+            variants={fadeUpMedium}
+            initial="hidden"
+            animate="visible"
             transition={{ duration: 0.5 }}
             className="mx-auto inline-flex items-center gap-3 rounded-[12px] border border-white/[0.06] bg-[#1b171d] px-4 py-3 shadow-[0_14px_30px_rgba(0,0,0,0.22)]"
           >
@@ -48,8 +50,9 @@ export default function HeroSection() {
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
             transition={{ delay: 0.08, duration: 0.6 }}
             className="mt-10 text-balance text-[40px] font-semibold leading-[0.98] tracking-[-0.055em] text-white sm:text-[56px] md:text-[66px] lg:text-[78px]"
           >
@@ -58,8 +61,9 @@ export default function HeroSection() {
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
+            variants={fadeUpMedium}
+            initial="hidden"
+            animate="visible"
             transition={{ delay: 0.14, duration: 0.55 }}
             className="mx-auto mt-6 max-w-[640px] text-[12px] leading-6 text-white/38 sm:text-[14px]"
           >
@@ -68,8 +72,9 @@ export default function HeroSection() {
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
+            variants={fadeUpMedium}
+            initial="hidden"
+            animate="visible"
             transition={{ delay: 0.2, duration: 0.55 }}
             className="mt-7 flex justify-center"
           >
@@ -85,8 +90,9 @@ export default function HeroSection() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
           transition={{ delay: 0.22, duration: 0.6 }}
           className="mx-auto mt-10 max-w-[860px]"
         >
@@ -106,7 +112,7 @@ export default function HeroSection() {
           </div>
         </motion.div>
 
-        <HeroWorkspacePreview />
+        <HeroVideoShowcase />
 
         <div className="mt-5 text-center">
           <span className="text-[10px] text-white/25">800,000+ items synced</span>
