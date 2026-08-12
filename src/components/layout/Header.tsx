@@ -1,70 +1,52 @@
 "use client";
 
 import { ArrowUpRight, ChevronDown, LogIn } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import Link from "next/link";
 import { useState } from "react";
+import BrandMark from "@/components/ui/BrandMark";
 import MobileMenu from "./MobileMenu";
 
-const useCases = [
-  {
-    title: "Founders",
-    description: "AI that knows your company",
-  },
-  {
-    title: "Builders",
-    description: "One context for every agent",
-  },
-  {
-    title: "Agencies",
-    description: "Live context per client",
-  },
-  {
-    title: "GTM",
-    description: "Marketing, sales & ops",
-  },
-];
+const personas = ["Founders", "Builders", "Agencies", "GTM"];
 
 export default function Header() {
   const [showUseCases, setShowUseCases] = useState(false);
 
   return (
-    <header className="absolute inset-x-0 top-0 z-50">
-      <div className="mx-auto flex h-[116px] w-full max-w-[1820px] items-center justify-between px-6 lg:px-10 xl:px-12">
-        <a
-          href="#top"
-          className="flex h-[50px] items-center gap-3 rounded-full border border-white/[0.08] bg-[#1b1b1b] px-6 transition-colors hover:bg-[#202020]"
+    <nav className="pointer-events-none fixed inset-x-0 top-4 z-50 flex justify-center px-4 sm:top-6 sm:px-6">
+      <div className="flex w-full max-w-[1400px] items-center justify-between">
+        <div
+          role="group"
+          aria-label="Unabyss brand"
+          className="v2-shine v2-glass-panel pointer-events-auto flex h-10 min-h-10 items-center rounded-[24px] px-4"
         >
-          <span className="grid grid-cols-3 gap-[2px]">
-            {Array.from({ length: 9 }).map((_, index) => (
-              <span
-                key={index}
-                className="size-[4px] rounded-full bg-white/45"
-              />
-            ))}
-          </span>
+          <Link href="/" className="flex items-center gap-2 rounded-lg px-1 py-0.5">
+            <BrandMark />
+            <span className="text-[14px] font-thin tracking-[var(--tracking-brand)] text-white">
+              UNABYSS
+            </span>
+          </Link>
+        </div>
 
-          <span className="text-[15px] font-medium tracking-[0.36em] text-white/85">
-            UNABYSS
-          </span>
-        </a>
-
-        <div className="hidden items-center gap-4 lg:flex">
+        <div className="pointer-events-auto flex items-center gap-2 sm:gap-3">
           <div
-            className="relative"
+            className="relative hidden sm:block"
+            role="group"
+            aria-label="Primary navigation"
             onMouseEnter={() => setShowUseCases(true)}
             onMouseLeave={() => setShowUseCases(false)}
           >
-            <nav className="flex h-[50px] items-center rounded-full border border-white/[0.08] bg-[#1b1b1b] px-2">
+            <div className="v2-shine v2-glass-panel flex h-10 min-h-10 items-center gap-9 rounded-[24px] px-[25px]">
               <button
                 type="button"
+                aria-haspopup="true"
+                aria-expanded={showUseCases}
                 onClick={() => setShowUseCases((current) => !current)}
-                className="flex h-[38px] items-center gap-2 rounded-full px-5 text-[14px] font-medium text-white/80 transition-colors hover:bg-white/[0.04] hover:text-white"
+                className="inline-flex h-8 items-center gap-1 text-[12px] text-white/75 transition-colors hover:text-white"
               >
                 Use cases
-
                 <ChevronDown
                   size={14}
-                  className={`transition-transform duration-200 ${
+                  className={`size-3.5 transition-transform duration-200 ${
                     showUseCases ? "rotate-180" : ""
                   }`}
                 />
@@ -72,94 +54,68 @@ export default function Header() {
 
               <a
                 href="#how-it-works"
-                className="flex h-[38px] items-center rounded-full px-5 text-[14px] text-white/60 transition-colors hover:text-white"
+                className="inline-flex h-8 items-center text-[12px] text-white/75 transition-colors hover:text-white"
               >
                 How it works
               </a>
 
               <a
                 href="#teams"
-                className="flex h-[38px] items-center rounded-full px-5 text-[14px] text-white/60 transition-colors hover:text-white"
+                className="inline-flex h-8 items-center text-[12px] text-white/75 transition-colors hover:text-white"
               >
                 Teams
               </a>
 
-              <a
-                href="#pricing"
-                className="flex h-[38px] items-center rounded-full px-5 text-[14px] text-white/60 transition-colors hover:text-white"
+              <Link
+                href="/#pricing"
+                className="inline-flex h-8 items-center text-[12px] text-white/75 transition-colors hover:text-white"
               >
                 Pricing
-              </a>
+              </Link>
 
               <a
                 href="https://app.unabyss.com/login"
                 target="_blank"
                 rel="noreferrer"
-                className="flex h-[38px] items-center gap-2 rounded-full px-5 text-[14px] text-white/60 transition-colors hover:text-white"
+                className="inline-flex h-8 items-center gap-1.5 text-[12px] text-white/75 transition-colors hover:text-white"
               >
                 Log in
                 <LogIn size={14} />
               </a>
-            </nav>
+            </div>
 
-            <AnimatePresence>
-              {showUseCases && (
-                <motion.div
-                  initial={{
-                    opacity: 0,
-                    y: -6,
-                    scale: 0.985,
-                  }}
-                  animate={{
-                    opacity: 1,
-                    y: 0,
-                    scale: 1,
-                  }}
-                  exit={{
-                    opacity: 0,
-                    y: -6,
-                    scale: 0.985,
-                  }}
-                  transition={{
-                    duration: 0.16,
-                  }}
-                  className="absolute right-0 top-[60px] w-[590px] rounded-[22px] border border-white/[0.08] bg-[#1b1b1b] p-6 shadow-[0_30px_70px_rgba(0,0,0,0.45)]"
-                >
-                  <div className="space-y-6">
-                    {useCases.map((item) => (
-                      <a
-                        key={item.title}
-                        href="#use-cases"
-                        className="group flex items-center justify-between"
-                      >
-                        <span className="text-[16px] font-semibold text-white/85 transition-colors group-hover:text-white">
-                          {item.title}
-                        </span>
-
-                        <span className="text-[13px] text-white/35 transition-colors group-hover:text-white/55">
-                          {item.description}
-                        </span>
-                      </a>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {showUseCases && (
+              <div className="v2-glass-panel absolute right-0 top-[calc(100%+8px)] w-[240px] rounded-[20px] p-2 shadow-[0_24px_60px_rgba(0,0,0,0.45)]">
+                {personas.map((persona) => (
+                  <a
+                    key={persona}
+                    href="#use-cases"
+                    onClick={() => setShowUseCases(false)}
+                    className="flex h-10 items-center rounded-[12px] px-4 text-[13px] text-white/70 transition-colors hover:bg-white/[0.06] hover:text-white"
+                  >
+                    {persona}
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
 
           <a
-            href="https://app.unabyss.com"
+            href="https://app.unabyss.com/register"
             target="_blank"
             rel="noreferrer"
-            className="flex h-[50px] items-center gap-2 rounded-full bg-white px-6 text-[14px] font-semibold text-black transition-transform duration-200 hover:scale-[1.025]"
+            className="group hidden h-9 items-center gap-1.5 rounded-full border border-white/15 bg-white px-4 text-[12px] font-medium text-black backdrop-blur transition-all hover:bg-white/90 sm:inline-flex"
           >
             Try now
-            <ArrowUpRight size={15} />
+            <ArrowUpRight
+              size={14}
+              className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            />
           </a>
-        </div>
 
-        <MobileMenu />
+          <MobileMenu />
+        </div>
       </div>
-    </header>
+    </nav>
   );
 }

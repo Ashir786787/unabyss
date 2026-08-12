@@ -1,62 +1,114 @@
 "use client";
 
-import PageContainer from "@/components/layout/PageContainer";
-import { fadeUp, viewportQuarter } from "@/lib/animations";
-import { motion } from "motion/react";
+import { useEffect, useState } from "react";
+import { ArrowUpRight } from "lucide-react";
+import Reveal from "@/components/ui/Reveal";
+import { useInView } from "@/lib/useInView";
 
-const statistics = [
-  {
-    value: "800K+",
-    label: "items synced",
-  },
-  {
-    value: "25+",
-    label: "connected apps",
-  },
-  {
-    value: "10+",
-    label: "AI tools",
-  },
-  {
-    value: "1",
-    label: "shared memory",
-  },
-];
+const DURATION = 1200;
+
+type CountUpProps = {
+  target: number;
+  suffix: string;
+  label: string;
+  nowrap?: boolean;
+  gold?: boolean;
+};
+
+function formatFigure(value: number) {
+  return value.toLocaleString("en-US");
+}
+
+function CountUp({ target, suffix, label, nowrap = false, gold = false }: CountUpProps) {
+  const [ref, inView] = useInView<HTMLDivElement>();
+  const [display, setDisplay] = useState(target);
+
+  useEffect(() => {
+    if (!inView) {
+      return;
+    }
+
+    const start = performance.now();
+    let frame = 0;
+
+    const step = (now: number) => {
+      const t = Math.min((now - start) / DURATION, 1);
+      const ease = 1 - Math.pow(1 - t, 3);
+
+      setDisplay(Math.round(target * ease));
+
+      if (t < 1) {
+        frame = requestAnimationFrame(step);
+      }
+    };
+
+    frame = requestAnimationFrame(step);
+
+    return () => cancelAnimationFrame(frame);
+  }, [inView, target]);
+
+  return (
+    <div ref={ref} className="flex flex-col items-center">
+      <span
+        className={`v2-print-display text-white${gold ? " figure-gold" : ""}`}
+        style={{ fontSize: "clamp(40px, 6vw, 64px)", lineHeight: 1 }}
+      >
+        {formatFigure(display)}
+        {suffix}
+      </span>
+      <span
+        className={`mt-2 max-w-[16ch] text-[13px] font-light leading-[1.4] text-white/60${
+          nowrap ? " whitespace-nowrap" : ""
+        }`}
+      >
+        {label}
+      </span>
+    </div>
+  );
+}
 
 export default function StatisticsSection() {
   return (
-    <section className="relative bg-[#0c0c0c] py-20 sm:py-24 lg:py-28">
-      <PageContainer>
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportQuarter}
-          transition={{ duration: 0.55 }}
-          className="mx-auto max-w-[920px]"
-        >
-          <div className="grid overflow-hidden rounded-[16px] border border-white/[0.07] bg-[#111111] sm:grid-cols-2 lg:grid-cols-4">
-            {statistics.map((stat, index) => (
-              <div
-                key={stat.label}
-                className={`flex min-h-[145px] flex-col items-center justify-center px-6 py-8 text-center ${
-                  index !== statistics.length - 1
-                    ? "border-b border-white/[0.06] sm:border-b-0 sm:border-r"
-                    : ""
-                }`}
-              >
-                <p className="text-[30px] font-semibold tracking-[-0.045em] text-white sm:text-[34px]">
-                  {stat.value}
-                </p>
+    <section className="relative px-6 py-20 sm:px-10 sm:py-28 lg:px-12">
+      <div className="relative mx-auto max-w-[1100px]">
+        <Reveal className="v2-shine v2-shine--light v2-card-glass relative overflow-hidden rounded-[22px] px-8 py-12 text-center sm:px-12 sm:py-14">
+          <span className="v2-print-label">Proof</span>
+          <h2
+            className="v2-print-display mx-auto mt-4 max-w-[20ch] text-white"
+            style={{
+              fontSize: "clamp(26px, 3.4vw, 40px)",
+              lineHeight: 1.2,
+            }}
+          >
+            One context. Every tool.
+          </h2>
+          <p className="mt-2 text-[13px] font-light text-white/45">
+            Working across
+          </p>
 
-                <p className="mt-2 text-[10px] uppercase tracking-[0.14em] text-white/25">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
+          <div className="mt-6 flex flex-wrap items-start justify-center gap-x-12 gap-y-8">
+            <CountUp target={10} suffix="+" label="AI tools" />
+            <CountUp target={25} suffix="+" label="integrated apps" />
+            <CountUp
+              target={900000}
+              suffix="+"
+              label="memory sources saved by users"
+              nowrap
+              gold
+            />
           </div>
-        </motion.div>
-      </PageContainer>
+
+          <div className="mt-10 flex justify-center">
+            <a
+              href="/integrations"
+              className="v2-shine v2-glass-panel group inline-flex h-12 items-center gap-2 rounded-full px-6 text-[14px] font-medium text-white no-underline transition-colors"
+            >
+              Explore all integrations
+              <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
+          </div>
+        </Reveal>
+      </div>
     </section>
   );
 }

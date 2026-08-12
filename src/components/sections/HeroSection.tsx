@@ -1,123 +1,84 @@
 "use client";
 
-import PageContainer from "@/components/layout/PageContainer";
-import HeroVideoShowcase from "@/components/visuals/HeroVideoShowcase";
-import { fadeUp, fadeUpMedium } from "@/lib/animations";
-import { motion } from "motion/react";
-
-const aiTools = [
-  "OpenClaw",
-  "Claude",
-  "Codex",
-  "Cursor",
-  "Gemini",
-  "Perplexity",
-  "VS Code",
-  "ChatGPT",
-  "Grok",
-];
+import { ArrowUpRight } from "lucide-react";
+import PhBadge from "@/components/ui/PhBadge";
+import { RotatingSlot, aiLogos, aiLogosShifted, appLogos } from "@/components/ui/RotatingLogos";
+import { Marquee } from "@/components/ui/Marquee";
+import { tools } from "@/data/tools";
 
 export default function HeroSection() {
   return (
     <section
       id="top"
-      className="relative overflow-hidden bg-[#0c0c0c] pb-20 pt-[210px] sm:pt-[225px] lg:pt-[245px]"
+      className="relative isolate flex min-h-[70vh] flex-col justify-center overflow-hidden px-6 pb-16 pt-36 sm:px-10 sm:pt-44 lg:px-12"
     >
-      <div className="pointer-events-none absolute left-1/2 top-[70px] h-[430px] w-[700px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,100,74,0.08),transparent_68%)]" />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10"
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 45% at 50% 38%, rgba(255,255,255,0.06), transparent 70%)",
+        }}
+      />
 
-      <PageContainer className="relative">
-        <div className="mx-auto max-w-[980px] text-center">
-          <motion.div
-            variants={fadeUpMedium}
-            initial="hidden"
-            animate="visible"
-            transition={{ duration: 0.5 }}
-            className="mx-auto inline-flex items-center gap-3 rounded-[12px] border border-white/[0.06] bg-[#1b171d] px-4 py-3 shadow-[0_14px_30px_rgba(0,0,0,0.22)]"
-          >
-            <div className="flex size-8 items-center justify-center rounded-full bg-[#f3c51d] text-[13px] font-bold text-black">
-              1
-            </div>
-
-            <div className="text-left">
-              <p className="text-[8px] font-semibold uppercase tracking-[0.08em] text-white/45">
-                Product Hunt
-              </p>
-
-              <p className="mt-0.5 text-[12px] font-semibold text-white">
-                #1 Product of the Day
-              </p>
-            </div>
-          </motion.div>
-
-          <motion.h1
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 0.08, duration: 0.6 }}
-            className="mt-10 text-balance text-[40px] font-semibold leading-[0.98] tracking-[-0.055em] text-white sm:text-[56px] md:text-[66px] lg:text-[78px]"
-          >
-            Your <span className="text-[#ff7657]">AI</span> doesn&apos;t talk to
-            <br className="hidden sm:block" /> your other tools
-          </motion.h1>
-
-          <motion.p
-            variants={fadeUpMedium}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 0.14, duration: 0.55 }}
-            className="mx-auto mt-6 max-w-[640px] text-[12px] leading-6 text-white/38 sm:text-[14px]"
-          >
-            Connect your tools once and give every AI access to the context it
-            needs, without repeating yourself again.
-          </motion.p>
-
-          <motion.div
-            variants={fadeUpMedium}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 0.2, duration: 0.55 }}
-            className="mt-7 flex justify-center"
-          >
-            <a
-              href="https://app.unabyss.com"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex h-10 items-center gap-2 rounded-full bg-white px-5 text-[11px] font-semibold text-black transition-transform hover:scale-[1.025]"
-            >
-              Start free now
-            </a>
-          </motion.div>
-        </div>
-
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          transition={{ delay: 0.22, duration: 0.6 }}
-          className="mx-auto mt-10 max-w-[860px]"
-        >
-          <p className="mb-3 text-center text-[9px] uppercase tracking-[0.18em] text-white/18">
-            Works with
-          </p>
-
-          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
-            {aiTools.map((tool) => (
-              <span
-                key={tool}
-                className="text-[10px] font-medium text-white/32 transition-colors hover:text-white/65"
-              >
-                {tool}
-              </span>
-            ))}
+      <div className="mx-auto flex max-w-[1100px] flex-col items-center text-center">
+        <div className="mb-7">
+          <div className="pointer-events-auto flex items-center gap-2">
+            <PhBadge period="day" className="relative z-10" />
+            <PhBadge period="week" className="relative z-0 hidden sm:block" />
+            <PhBadge period="month" className="relative z-0 hidden sm:block" />
           </div>
-        </motion.div>
-
-        <HeroVideoShowcase />
-
-        <div className="mt-5 text-center">
-          <span className="text-[10px] text-white/25">800,000+ items synced</span>
         </div>
-      </PageContainer>
+
+        <h1 className="v2-print-display w-full break-words leading-[1.14] text-white text-[clamp(30px,7.4vw,38px)] max-sm:max-w-[calc(100vw_-_3rem)] sm:w-auto sm:text-balance sm:text-[clamp(32px,4.8vw,60px)]">
+          Your <RotatingSlot logos={aiLogos} /> doesn&rsquo;t talk to{" "}
+          <RotatingSlot logos={aiLogosShifted} startDelay={800} />{" "}
+          <span className="text-white/45 sm:mt-2 sm:block">
+            and doesn&rsquo;t know what happens in{" "}
+            <RotatingSlot logos={appLogos} className="text-white" />
+          </span>
+        </h1>
+
+        <p className="mt-7 hidden max-w-[52ch] text-[15px] font-light leading-[1.7] text-white/70 sm:block sm:text-[16px]">
+          Your complete context in every AI you use. Connect once and never
+          explain yourself to AI again.
+        </p>
+
+        <div className="mt-9">
+          <a
+            href="https://app.unabyss.com/register"
+            target="_blank"
+            rel="noreferrer"
+            className="group inline-flex h-12 items-center gap-1.5 rounded-full bg-white px-6 text-[14px] font-medium text-black transition-all hover:bg-white/90"
+          >
+            Start free now
+            <ArrowUpRight
+              size={16}
+              className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            />
+          </a>
+        </div>
+      </div>
+
+      <Marquee tools={tools} counter="900,000+">
+        <a
+          href="https://elevenlabs.io/text-to-speech"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-2 inline-flex items-center gap-1.5 no-underline opacity-80 transition-opacity hover:opacity-100 sm:gap-2.5"
+        >
+          <span className="text-[8.5px] font-medium uppercase leading-none tracking-[0.18em] text-white/45 sm:text-[10.5px] sm:tracking-[0.22em]">
+            Backed by
+          </span>
+          <img
+            src="/images/elevenlabs-grants.webp"
+            alt="ElevenLabs Grants"
+            className="h-2.5 w-auto sm:h-4"
+            loading="lazy"
+            decoding="async"
+          />
+        </a>
+      </Marquee>
     </section>
   );
 }

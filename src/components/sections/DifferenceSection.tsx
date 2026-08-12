@@ -1,223 +1,166 @@
 "use client";
 
-import PageContainer from "@/components/layout/PageContainer";
-import { fadeLeft, fadeRight, fadeUp, fadeUpSixteen, viewportFifth, viewportOnce, viewportQuarter } from "@/lib/animations";
-import { ArrowRight, Check, Search, Sparkles } from "lucide-react";
-import { motion } from "motion/react";
+import { useEffect, useState, type CSSProperties } from "react";
+import { ArrowUpRight, Check, Clock, X } from "lucide-react";
+import Reveal from "@/components/ui/Reveal";
+import ChatMock from "@/components/ui/ChatMock";
+import { useInView } from "@/lib/useInView";
 
-function ClaudeWindow({
-  connected = false,
-}: {
-  connected?: boolean;
-}) {
-  return (
-    <div
-      className={`overflow-hidden rounded-[18px] border bg-[#111111] ${
-        connected
-          ? "border-[#ff7657]/18 shadow-[0_20px_60px_rgba(255,118,87,0.05)]"
-          : "border-white/[0.07]"
-      }`}
-    >
-      <div className="flex h-10 items-center border-b border-white/[0.06] bg-[#151515] px-3">
-        <div className="flex gap-1.5">
-          <span className="size-[6px] rounded-full bg-[#ff5f57]" />
-          <span className="size-[6px] rounded-full bg-[#febc2e]" />
-          <span className="size-[6px] rounded-full bg-[#28c840]" />
-        </div>
+const COLD_TARGET = 192.4;
+const WARM_TARGET = 6.8;
+const RUN_DURATION = 2400;
 
-        <span className="mx-auto text-[8px] text-white/20">
-          Claude
-        </span>
-      </div>
+function formatTime(totalSeconds: number) {
+  if (totalSeconds < 60) {
+    return `${totalSeconds.toFixed(1)}s`;
+  }
 
-      <div className="min-h-[330px] p-5">
-        <div className="mb-7 flex justify-end">
-          <div className="max-w-[82%] rounded-[13px] rounded-br-[4px] border border-white/[0.05] bg-[#1d1d1d] px-4 py-3">
-            <p className="text-[10px] leading-5 text-white/45">
-              Can you prepare the follow-up for this client?
-            </p>
-          </div>
-        </div>
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = Math.floor(totalSeconds % 60);
 
-        {!connected ? (
-          <div>
-            <div className="flex items-center gap-2">
-              <div className="flex size-7 items-center justify-center rounded-full bg-[#d97757]">
-                <Sparkles size={11} className="text-white" />
-              </div>
-
-              <p className="text-[9px] font-medium text-white/48">
-                Claude
-              </p>
-            </div>
-
-            <div className="mt-4 pl-9">
-              <p className="text-[10px] leading-5 text-white/28">
-                Sure. Can you share the client name, the latest conversation,
-                the project status, and what you want to follow up on?
-              </p>
-
-              <div className="mt-5 rounded-[10px] border border-white/[0.05] bg-white/[0.02] p-3">
-                <p className="text-[8px] text-white/18">
-                  Missing context from your workspace
-                </p>
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div>
-            <div className="mb-5 flex items-center gap-2 rounded-[10px] border border-[#ff7657]/15 bg-[#ff7657]/[0.045] px-3 py-2.5">
-              <Search size={11} className="text-[#ff8067]" />
-
-              <span className="text-[8px] font-medium text-[#ff8a73]">
-                Pulled context from Unabyss
-              </span>
-
-              <Check size={11} className="ml-auto text-emerald-400/80" />
-            </div>
-
-            <div className="flex items-center gap-2">
-              <div className="flex size-7 items-center justify-center rounded-full bg-[#d97757]">
-                <Sparkles size={11} className="text-white" />
-              </div>
-
-              <p className="text-[9px] font-medium text-white/48">
-                Claude
-              </p>
-            </div>
-
-            <div className="mt-4 pl-9">
-              <p className="text-[10px] leading-5 text-white/30">
-                I found the latest conversation, current project status, and
-                outstanding action items. Here&apos;s the follow-up:
-              </p>
-
-              <div className="mt-4 rounded-[10px] border border-white/[0.06] bg-[#171717] p-4">
-                <p className="text-[9px] font-medium text-white/48">
-                  Subject: Next steps
-                </p>
-
-                <p className="mt-2 text-[9px] leading-4 text-white/24">
-                  Hi — following up on our latest discussion. The implementation
-                  is moving forward and the remaining action items are...
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-
-      <div className="border-t border-white/[0.06] p-3">
-        <div className="flex h-10 items-center rounded-[9px] border border-white/[0.06] bg-[#101010] px-3">
-          <span className="text-[8px] text-white/18">
-            Message Claude...
-          </span>
-
-          <span className="ml-auto text-[7px] text-white/12">
-            Sonnet
-          </span>
-        </div>
-      </div>
-    </div>
-  );
+  return `${minutes}m ${seconds}s`;
 }
 
 export default function DifferenceSection() {
+  const [gridRef, inView] = useInView<HTMLDivElement>();
+  const [coldDisplay, setColdDisplay] = useState("0.0s");
+  const [warmDisplay, setWarmDisplay] = useState("0.0s");
+
+  useEffect(() => {
+    if (!inView) {
+      return;
+    }
+
+    let frame = 0;
+
+    const step = (now: number) => {
+      const t = Math.min((now - start) / RUN_DURATION, 1);
+      const ease = 1 - Math.pow(1 - t, 3);
+
+      setColdDisplay(formatTime(COLD_TARGET * ease));
+      setWarmDisplay(formatTime(WARM_TARGET * ease));
+
+      if (t < 1) {
+        frame = requestAnimationFrame(step);
+      }
+    };
+
+    const start = performance.now();
+    frame = requestAnimationFrame(step);
+
+    return () => cancelAnimationFrame(frame);
+  }, [inView]);
+
   return (
-    <section className="relative overflow-hidden bg-[#0c0c0c] py-28 sm:py-32 lg:py-36">
-      <div className="pointer-events-none absolute left-1/2 top-[44%] h-[600px] w-[860px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,111,82,0.045),transparent_70%)]" />
-
-      <PageContainer className="relative">
-        <div className="mx-auto max-w-[980px]">
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportQuarter}
-            transition={{ duration: 0.55 }}
-            className="text-center"
+    <section className="relative px-6 py-24 sm:px-10 sm:py-32 lg:px-12">
+      <div className="relative mx-auto max-w-[1100px]">
+        <Reveal className="mb-12 flex flex-col items-center text-center">
+          <span className="v2-print-label">The difference</span>
+          <h2
+            className="v2-print-display mt-5 max-w-[20ch] text-white"
+            style={{
+              fontSize: "clamp(30px, 4vw, 48px)",
+              lineHeight: 1.2,
+            }}
           >
-            <p className="text-[9px] uppercase tracking-[0.24em] text-white/18">
-              The difference
-            </p>
+            Don&apos;t answer questions - just work.
+          </h2>
+        </Reveal>
 
-            <h2 className="mt-4 text-balance text-[30px] font-semibold leading-[1.03] tracking-[-0.045em] text-white sm:text-[40px] lg:text-[48px]">
-              Don&apos;t answer questions.
-              <br className="hidden sm:block" /> Just work.
-            </h2>
+        <div
+          ref={gridRef}
+          style={{ "--v2-reveal-delay": "120ms" } as CSSProperties}
+          className={`v2-reveal grid grid-cols-1 gap-6 md:grid-cols-2 ${
+            inView ? "is-revealed" : ""
+          }`}
+        >
+          <div className="ww-col">
+            <div className="ww-note ww-note--cold">
+              <X className="size-4" />
+              Without Unabyss
+            </div>
 
-            <p className="mx-auto mt-5 max-w-[580px] text-[11px] leading-5 text-white/28 sm:text-[12px]">
-              Without context, your AI asks you for the background. With Unabyss,
-              it can start from what already happened.
-            </p>
-          </motion.div>
-
-          <div className="mt-14 grid gap-5 lg:grid-cols-2">
-            <motion.div
-              variants={fadeLeft}
-              initial="hidden"
-              whileInView="visible"
-              viewport={viewportFifth}
-              transition={{ duration: 0.55 }}
-            >
-              <div className="mb-3 flex items-center gap-2">
-                <span className="size-1.5 rounded-full bg-white/20" />
-
-                <span className="text-[9px] font-medium text-white/28">
-                  Without Unabyss
-                </span>
+              <div className="ww-stage ww-stage--noted">
+                <div className="ww-window ww-window--cold">
+                  <ChatMock title="Client follow-up">
+                    <div className="flex flex-col gap-[1.6cqw]">
+                      <p className="self-end max-w-[80%] rounded-[1.6cqw] rounded-br-[0.5cqw] border border-white/10 bg-white/[0.06] px-[1.5cqw] py-[1cqw] text-[1.5cqw] font-light leading-[1.5] text-[#ecebe4]">
+                        Can you prepare the follow-up for this client?
+                      </p>
+                      <p className="self-start max-w-[80%] rounded-[1.6cqw] rounded-bl-[0.5cqw] border border-white/10 bg-white/[0.06] px-[1.5cqw] py-[1cqw] text-[1.5cqw] font-light leading-[1.5] text-[#ecebe4]">
+                        Sure. Can you share the client name and the latest
+                        conversation?
+                      </p>
+                    </div>
+                  </ChatMock>
+                </div>
               </div>
 
-              <ClaudeWindow />
-            </motion.div>
+              <div
+                className="ww-hud ww-hud--cold"
+                aria-label="Time to answer without Unabyss"
+              >
+                <Clock className="ww-hud__icon" />
+                <span className="ww-hud__time">{coldDisplay}</span>
+              </div>
+            </div>
 
-            <motion.div
-              variants={fadeRight}
-              initial="hidden"
-              whileInView="visible"
-              viewport={viewportFifth}
-              transition={{ delay: 0.08, duration: 0.55 }}
-            >
-              <div className="mb-3 flex items-center gap-2">
-                <span className="size-1.5 rounded-full bg-[#ff7657]" />
-
-                <span className="text-[9px] font-medium text-white/48">
-                  With Unabyss
-                </span>
+            <div className="ww-col order-first md:order-none">
+              <div className="ww-note ww-note--warm">
+                <Check className="size-4" />
+                With Unabyss
               </div>
 
-              <ClaudeWindow connected />
-            </motion.div>
+              <div className="ww-stage ww-stage--noted">
+                <div className="ww-window ww-window--warm">
+                  <ChatMock title="Client follow-up">
+                    <div className="flex flex-col gap-[1.6cqw]">
+                      <p className="self-end max-w-[80%] rounded-[1.6cqw] rounded-br-[0.5cqw] border border-white/10 bg-white/[0.06] px-[1.5cqw] py-[1cqw] text-[1.5cqw] font-light leading-[1.5] text-[#ecebe4]">
+                        Can you prepare the follow-up for this client?
+                      </p>
+                      <p className="self-start max-w-[80%] rounded-[1.6cqw] rounded-bl-[0.5cqw] border border-white/10 bg-white/[0.06] px-[1.5cqw] py-[1cqw] text-[1.5cqw] font-light leading-[1.5] text-[#ecebe4]">
+                        I found your client notes and the latest thread.
+                        Here&apos;s the follow-up.
+                      </p>
+                    </div>
+                  </ChatMock>
+                </div>
+              </div>
+
+              <div
+                className="ww-hud ww-hud--warm"
+                aria-label="Time to answer with Unabyss"
+              >
+                <Clock className="ww-hud__icon" />
+                <span className="ww-hud__time">{warmDisplay}</span>
+              </div>
+            </div>
           </div>
 
-          <motion.div
-            variants={fadeUpSixteen}
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportOnce}
-            transition={{ delay: 0.12, duration: 0.55 }}
-            className="mx-auto mt-16 max-w-[560px] text-center"
-          >
-            <h3 className="text-[23px] font-semibold tracking-[-0.035em] text-white sm:text-[27px]">
+          <Reveal
+            delay={200}
+          className="v2-shine v2-shine--light v2-card-glass mx-auto mt-20 flex max-w-[900px] flex-col items-center gap-5 rounded-[18px] px-6 py-6 sm:mt-28 sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:px-8"
+        >
+          <div className="flex flex-col items-center gap-1.5 text-center sm:items-start sm:text-left">
+            <h3 className="text-[19px] font-medium leading-snug text-white sm:text-[20px]">
               What you tell one AI, they all know.
             </h3>
-
-            <p className="mt-3 text-[10px] leading-5 text-white/24 sm:text-[11px]">
-              No more copying context between tools that don&apos;t talk.
+            <p className="max-w-[52ch] text-[14px] font-light leading-[1.6] text-white/60 sm:text-[15px]">
+              No copy-pasting between tools that don&apos;t talk.
             </p>
+          </div>
 
+          <div className="w-full shrink-0 sm:w-auto">
             <a
-              href="https://app.unabyss.com"
-              target="_blank"
-              rel="noreferrer"
-              className="mt-6 inline-flex h-9 items-center gap-2 rounded-full bg-white px-5 text-[9px] font-medium text-black transition-transform hover:scale-[1.025]"
+              href="https://app.unabyss.com/register"
+              className="group flex h-11 w-full shrink-0 items-center justify-center gap-1.5 rounded-full bg-white px-5 text-[13px] font-medium text-black transition-all hover:bg-white/90 sm:inline-flex sm:w-auto"
             >
               Start now
-              <ArrowRight size={11} />
+              <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
-          </motion.div>
-        </div>
-      </PageContainer>
+          </div>
+        </Reveal>
+      </div>
     </section>
   );
 }

@@ -1,81 +1,100 @@
 "use client";
 
-import { navigationItems } from "@/data/navigation";
-import { AnimatePresence, motion } from "motion/react";
-import { Menu, X } from "lucide-react";
+import { ArrowUpRight, LogIn, Menu, X } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
+import BrandMark from "@/components/ui/BrandMark";
+
+const links = [
+  { label: "Use cases", href: "#use-cases" },
+  { label: "How it works", href: "#how-it-works" },
+  { label: "Teams", href: "#teams" },
+  { label: "Pricing", href: "/#pricing" },
+];
 
 export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="relative lg:hidden">
+    <>
       <button
         type="button"
-        aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+        aria-label={isOpen ? "Close menu" : "Open menu"}
         aria-expanded={isOpen}
         onClick={() => setIsOpen((current) => !current)}
-        className="flex size-7 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.025] text-white/65"
+        className="v2-shine v2-glass-panel flex size-10 shrink-0 items-center justify-center rounded-[24px] text-white/80 transition-colors hover:text-white sm:hidden"
       >
-        {isOpen ? <X size={13} /> : <Menu size={13} />}
+        {isOpen ? <X size={20} /> : <Menu size={20} />}
       </button>
 
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            <motion.button
-              type="button"
-              aria-label="Close navigation menu"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsOpen(false)}
-              className="fixed inset-0 z-40 bg-black/80 backdrop-blur-sm"
-            />
-
-            <motion.div
-              initial={{ opacity: 0, y: -8, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -8, scale: 0.98 }}
-              transition={{ duration: 0.18 }}
-              className="fixed left-4 right-4 top-14 z-50 rounded-[14px] border border-white/[0.08] bg-[#111111] p-3 shadow-2xl"
+      {isOpen && (
+        <div className="fixed inset-0 z-50 flex flex-col bg-[#0d0d0d]/95 backdrop-blur-xl">
+          <div className="flex items-center justify-between px-4 pt-4 sm:px-6">
+            <div
+              role="group"
+              aria-label="Unabyss brand"
+              className="v2-shine v2-glass-panel flex h-10 items-center rounded-[24px] px-4"
             >
-              <nav className="flex flex-col">
-                {navigationItems.map((item) => (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    onClick={() => setIsOpen(false)}
-                    className="rounded-[9px] px-3 py-2.5 text-[11px] text-white/55 transition-colors hover:bg-white/[0.04] hover:text-white"
-                  >
-                    {item.label}
-                  </a>
-                ))}
-              </nav>
+              <Link href="/" className="flex items-center gap-2 rounded-lg px-1 py-0.5">
+                <BrandMark />
+                <span className="text-[14px] font-thin tracking-[var(--tracking-brand)] text-white">
+                  UNABYSS
+                </span>
+              </Link>
+            </div>
 
-              <div className="mt-3 grid grid-cols-2 gap-2 border-t border-white/[0.06] pt-3">
-                <a
-                  href="https://app.unabyss.com/login"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex h-9 items-center justify-center rounded-full border border-white/[0.08] text-[10px] text-white/60"
-                >
-                  Log in
-                </a>
+            <button
+              type="button"
+              aria-label="Close menu"
+              aria-expanded={isOpen}
+              onClick={() => setIsOpen(false)}
+              className="v2-shine v2-glass-panel flex size-10 shrink-0 items-center justify-center rounded-[24px] text-white/80 transition-colors hover:text-white"
+            >
+              <X size={20} />
+            </button>
+          </div>
 
-                <a
-                  href="https://app.unabyss.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex h-9 items-center justify-center rounded-full bg-white text-[10px] font-medium text-black"
-                >
-                  Start free
-                </a>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-    </div>
+          <nav className="flex flex-1 flex-col justify-center gap-1 px-6">
+            {links.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target={link.href.startsWith("http") ? "_blank" : undefined}
+                rel={link.href.startsWith("http") ? "noreferrer" : undefined}
+                onClick={() => setIsOpen(false)}
+                className="flex h-14 items-center border-b border-white/[0.06] text-[20px] font-light text-white/70 transition-colors hover:text-white"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+
+          <div className="space-y-3 px-6 pb-8">
+            <a
+              href="https://app.unabyss.com/login"
+              target="_blank"
+              rel="noreferrer"
+              className="flex h-11 items-center justify-center gap-2 rounded-full border border-white/15 text-[14px] text-white/80 transition-colors hover:bg-white/[0.04]"
+            >
+              Log in
+              <LogIn size={15} />
+            </a>
+
+            <a
+              href="https://app.unabyss.com/register"
+              target="_blank"
+              rel="noreferrer"
+              className="group flex h-11 items-center justify-center gap-2 rounded-full bg-white text-[14px] font-medium text-black transition-transform hover:scale-[1.01]"
+            >
+              Try now
+              <ArrowUpRight
+                size={15}
+                className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              />
+            </a>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

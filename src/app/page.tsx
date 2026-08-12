@@ -7,6 +7,7 @@ import FAQSection from "@/components/sections/FAQSection";
 import FeaturesSection from "@/components/sections/FeaturesSection";
 import HeroSection from "@/components/sections/HeroSection";
 import IntegrationsSection from "@/components/sections/IntegrationsSection";
+import LoomSection from "@/components/sections/LoomSection";
 import OwnershipSection from "@/components/sections/OwnershipSection";
 import PricingSection from "@/components/sections/PricingSection";
 import ProblemsSection from "@/components/sections/ProblemsSection";
@@ -19,6 +20,7 @@ export default function Home() {
     <main className="min-h-screen overflow-hidden bg-[#0c0c0c]">
       <Header />
       <HeroSection />
+      <LoomSection />
       <ClaudeSetupSection />
       <ProblemsSection />
       <DifferenceSection />
