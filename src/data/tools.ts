@@ -16,6 +16,7 @@ export const tools: Tool[] = [
   { name: "VS Code", src: "/images/tools/vs-code.svg", brand: "#0065a9" },
   { name: "ChatGPT", src: "/images/tools/chatgpt.svg", brand: "#ffffff" },
   { name: "Grok", src: "/images/tools/grok.svg", brand: "#ffffff" },
+  { name: "Vellum", src: "/images/tools/vellum.svg", brand: "#23793d" },
   { name: "Hermes", src: "/images/tools/hermes.webp", brand: "#ffffff" },
   { name: "GitHub", src: "/images/tools/github.svg", brand: "#ffffff" },
   { name: "Notion", src: "/images/tools/notion.svg", brand: "#ffffff" },

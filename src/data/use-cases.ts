@@ -1,62 +1,62 @@
-export const useCases = [
+export type UseCase = {
+  id: string;
+  label: string;
+  description: string;
+  href: string;
+  tools: string[];
+};
+
+export const useCases: UseCase[] = [
   {
-    id: "research",
-    label: "Research",
-    title: "Research with your full context",
+    id: "builders",
+    label: "Builders",
     description:
-      "Let your AI pull from notes, files, conversations and previous work so research starts with what you already know.",
-    points: [
-      "Search across connected knowledge",
-      "Reuse previous findings",
-      "Keep research context available across AI tools",
+      "Your agents code with the full picture - past decisions, conventions, and the state of every repo.",
+    href: "/unabyss-for-builders",
+    tools: [
+      "/images/tools/cursor.svg",
+      "/images/tools/claude-code.svg",
+      "/images/tools/github.svg",
+      "/images/tools/linear.svg",
     ],
   },
   {
-    id: "development",
-    label: "Development",
-    title: "Code with project memory",
+    id: "founders",
+    label: "Founders",
     description:
-      "Give coding agents the context behind repositories, discussions, tasks and product decisions without repeating everything manually.",
-    points: [
-      "Understand repository context",
-      "Reference previous technical decisions",
-      "Carry context between coding tools",
+      "Every AI you use stays in the loop on your company - strategy, customers, and what shipped.",
+    href: "/unabyss-for-founders",
+    tools: [
+      "/images/tools/claude.svg",
+      "/images/tools/chatgpt.svg",
+      "/images/tools/slack.svg",
+      "/images/tools/notion.svg",
     ],
   },
   {
-    id: "sales",
-    label: "Sales",
-    title: "Never lose client context",
+    id: "agencies",
+    label: "Agencies",
     description:
-      "Bring together emails, meetings, notes and previous conversations so every follow-up starts with the complete client history.",
-    points: [
-      "Prepare client follow-ups",
-      "Recall previous conversations",
-      "Surface outstanding action items",
+      "Each client's context stays cleanly separated, so every answer is grounded in the right account.",
+    href: "/unabyss-for-agencies",
+    tools: [
+      "/images/tools/notion.svg",
+      "/images/tools/obsidian.svg",
+      "/images/tools/google-drive.svg",
+      "/images/tools/gmail.svg",
     ],
   },
   {
-    id: "writing",
-    label: "Writing",
-    title: "Write from everything you know",
+    id: "gtm",
+    label: "GTM",
     description:
-      "Give your AI access to previous drafts, research, notes and conversations so new content stays consistent with your work.",
-    points: [
-      "Reuse research and ideas",
-      "Maintain context between drafts",
-      "Reduce repetitive prompting",
-    ],
-  },
-  {
-    id: "productivity",
-    label: "Productivity",
-    title: "One memory for daily work",
-    description:
-      "Use AI across your everyday tools without rebuilding the same background every time you switch apps or assistants.",
-    points: [
-      "Summarize ongoing work",
-      "Find information across tools",
-      "Continue tasks from any AI",
+      "Pipeline, accounts, and call notes unified, so outreach and follow-ups write themselves.",
+    href: "/unabyss-for-gtm",
+    tools: [
+      "/images/tools/hubspot.svg",
+      "/images/tools/pipedrive.svg",
+      "/images/tools/linkedin.svg",
+      "/images/tools/gmail.svg",
     ],
   },
 ];

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Lexend, Newsreader } from "next/font/google";
+import Footer from "@/components/layout/Footer";
+import Header from "@/components/layout/Header";
 import Shine from "@/components/ui/Shine";
 import "./globals.css";
 
@@ -86,7 +88,11 @@ export default function RootLayout({
       <body
         className={`${lexend.variable} ${jetbrainsMono.variable} ${newsreader.variable} v2-app-shell-bg bg-[var(--background)] text-[var(--foreground)]`}
       >
-        {children}
+        <Header />
+        <main className="min-h-screen overflow-hidden bg-[#0c0c0c]">
+          {children}
+        </main>
+        <Footer />
         <Shine />
       </body>
     </html>

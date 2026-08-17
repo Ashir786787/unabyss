@@ -21,6 +21,7 @@ export type Demo = {
   category: string;
   title: string;
   chatTitle: string;
+  tool: "Claude" | "ChatGPT" | "Cursor";
   question: string;
   summary: string;
   modelName: string;
@@ -39,6 +40,7 @@ export const demos: Demo[] = [
     "category": "Founders",
     "title": "CEO weekly report",
     "chatTitle": "CEO weekly report",
+    "tool": "Claude",
     "question": "Create a CEO report covering what my team did this week, their priorities for next week and any blockers that need my attention.",
     "summary": "I'll pull this together from Unabyss.",
     "modelName": "Sonnet 5",
@@ -167,6 +169,7 @@ export const demos: Demo[] = [
     "category": "Builders",
     "title": "Infra decision review",
     "chatTitle": "GCP infrastructure review",
+    "tool": "Claude",
     "question": "Review why we chose GCP, why we rejected the alternatives, and whether any current indicators suggest it's time to reconsider or migrate.",
     "summary": "I'll pull your context from Unabyss and summarize it.",
     "modelName": "Sonnet 5",
@@ -279,6 +282,7 @@ export const demos: Demo[] = [
     "category": "Agencies",
     "title": "Client portfolio status",
     "chatTitle": "Client portfolio status",
+    "tool": "Claude",
     "question": "Prepare a summary of updates across client projects, including status, key actions, and bottlenecks.",
     "summary": "I'll pull your client project context from Unabyss.",
     "modelName": "Sonnet 5",
@@ -397,6 +401,7 @@ export const demos: Demo[] = [
     "category": "GTM",
     "title": "CRO pipeline report",
     "chatTitle": "CRO pipeline report",
+    "tool": "Claude",
     "question": "Prepare a pipeline report (the most important deals, pipeline changes, risks, and bottlenecks). Recommend actions, split between the sales team and myself.",
     "summary": "I'll pull the relevant context from Unabyss to prepare this CRO-focused pipeline report.",
     "modelName": "Sonnet 5",
@@ -513,6 +518,7 @@ export const demos: Demo[] = [
     "category": "Founders",
     "title": "Investor update",
     "chatTitle": "Investor update newsletter",
+    "tool": "ChatGPT",
     "question": "Prepare an investor update highlighting only our biggest wins and key milestones. Format it according to my branding guidelines.",
     "summary": "I'll pull your context from Unabyss and build the investor update newsletter.",
     "modelName": "Sonnet 5",
@@ -620,6 +626,7 @@ export const demos: Demo[] = [
     "category": "Builders",
     "title": "Billing + deploy check",
     "chatTitle": "Billing deploy safety",
+    "tool": "Cursor",
     "question": "How can I deploy new billing fast without affecting legacy users?",
     "summary": "I'll pull your context from Unabyss and summarize it.",
     "modelName": "Sonnet 5",
@@ -720,6 +727,7 @@ export const demos: Demo[] = [
     "category": "Agencies",
     "title": "Client weekly report",
     "chatTitle": "Weekly executive report",
+    "tool": "Claude",
     "question": "Prepare a weekly report covering my pipeline, client projects, financials, HR, and other key business updates.",
     "summary": "I'll pull your client project context from Unabyss.",
     "modelName": "Sonnet 5",
@@ -833,6 +841,7 @@ export const demos: Demo[] = [
     "category": "GTM",
     "title": "Marketing report",
     "chatTitle": "Marketing report",
+    "tool": "ChatGPT",
     "question": "Give me a marketing report highlighting the most urgent issues and recommended actions.",
     "summary": "I'll pull your context from Unabyss to ground this in your actual marketing situation.",
     "modelName": "Sonnet 5",
@@ -933,6 +942,7 @@ export const demos: Demo[] = [
     "category": "Founders",
     "title": "LinkedIn strategy",
     "chatTitle": "Founder LinkedIn strategy",
+    "tool": "Claude",
     "question": "Prepare a founder LinkedIn content strategy with 8 posts for this month (2/week), based on my recent context and thought leadership.",
     "summary": "I'll pull your context from Unabyss and build the strategy plus posts.",
     "modelName": "Sonnet 5",
@@ -1018,6 +1028,7 @@ export const demos: Demo[] = [
     "category": "Builders",
     "title": "Repo scaffold",
     "chatTitle": "New repo scaffold",
+    "tool": "Claude",
     "question": "I'm spinning up a new repo. Set it up the way I usually structure my projects.",
     "summary": "I'll pull your context from Unabyss about your past projects.",
     "modelName": "Sonnet 5",
@@ -1119,6 +1130,7 @@ export const demos: Demo[] = [
     "category": "Agencies",
     "title": "Candidate placement",
     "chatTitle": "Bartood.ai placement review",
+    "tool": "ChatGPT",
     "question": "Pull up the Bartood.ai placement from last quarter. Summarize the terms, renewal status, and churn/upsell opportunities based on recent activity.",
     "summary": "I'll pull Bartood.ai context from Unabyss.",
     "modelName": "Sonnet 5",
@@ -1232,6 +1244,7 @@ export const demos: Demo[] = [
     "category": "GTM",
     "title": "Performance ad tests",
     "chatTitle": "Performance ad tests",
+    "tool": "Claude",
     "question": "Prepare performance ad messaging with 10 A/B test ideas and brief visual concepts.",
     "summary": "I'll pull your context from Unabyss first, then build the ad tests.",
     "modelName": "Sonnet 5",
@@ -1315,6 +1328,233 @@ export const demos: Demo[] = [
           "**Single-variable tests** - change headline OR visual OR CTA, not all at once.",
           "Judge on **cost per activation**, not CTR; refresh winners every ~2 weeks.",
           "Kill variants once cost-per-activation clears your threshold with significance."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "audience-strategy",
+    "category": "GTM",
+    "title": "Meta audience strategy",
+    "chatTitle": "Meta audience strategy",
+    "tool": "ChatGPT",
+    "question": "Build a predictive audience strategy for Meta using my context. Define key audience segments, predictive signals, activation, and optimization for higher ROAS and conversions.",
+    "summary": "I'll pull your context from Unabyss to ground this.",
+    "modelName": "Sonnet 5",
+    "modelLevel": "Medium",
+    "video": "/videos/gtm-audience-strategy.webm",
+    "videoMs": 41050,
+    "cover": "/images/hero/cover-audience-strategy.webp",
+    "poster": "/images/hero/dominik-poster.jpg",
+    "trace": [
+      {
+        "icon": "find",
+        "text": "Finding tools",
+        "result": true,
+        "delay": 850
+      },
+      {
+        "icon": "find",
+        "text": "Finding tools",
+        "result": true,
+        "delay": 850
+      },
+      {
+        "icon": "reason",
+        "text": "A Meta strategy is only as good as the ICP behind it. Let me ground it in the real business, not assumptions.",
+        "delay": 1100
+      },
+      {
+        "icon": "tool",
+        "text": "Whoami",
+        "resultText": "Jacob - CEO, Einstein AI",
+        "delay": 1050
+      },
+      {
+        "icon": "tool",
+        "text": "Agentic query",
+        "request": "Synthesize Einstein AI's ICP for Meta: buyer personas and titles, firmographics, conversion triggers, best/highest-value customers, ACV bands, sales cycle, differentiators, and messaging themes.",
+        "delay": 1500
+      },
+      {
+        "icon": "tool",
+        "text": "Agentic query read",
+        "resultText": "pending",
+        "polling": true,
+        "delay": 4200
+      },
+      {
+        "icon": "tool",
+        "text": "Agentic query read",
+        "resultText": "pending",
+        "polling": true,
+        "delay": 4800
+      },
+      {
+        "icon": "tool",
+        "text": "Agentic query read",
+        "resultText": "completed",
+        "delay": 1400
+      }
+    ],
+    "answerBlocks": [
+      {
+        "kind": "h3",
+        "text": "Meta predictive audience strategy - Einstein AI"
+      },
+      {
+        "kind": "h4",
+        "text": "Highest-value segments"
+      },
+      {
+        "kind": "ul",
+        "items": [
+          "**Warm retargeting** - pricing/demo visitors and 50%+ video viewers; where your 14-day, no-security-review closes live.",
+          "**Value-weighted lookalikes** off closed-won (CloudScale, DataDriven, Momentum), not raw signups.",
+          "**Firmographic prospecting** - HR Manager, Recruiter, VP Talent, VP People at 200-5,000 employee SaaS and consulting.",
+          "**Exclude** existing customers, deals in security review, and compliance losses (Horizon lost on SOC 2 Type II)."
+        ]
+      },
+      {
+        "kind": "h4",
+        "text": "Predictive signals"
+      },
+      {
+        "kind": "ul",
+        "items": [
+          "**Greenhouse ATS** - your strongest predictor; CloudScale ($85K) runs on it.",
+          "**Hiring intensity** - 40-100 hires/year, 200+ applicants per role.",
+          "**Title seniority + function**, company size 200-5,000 (80-400 proven floor)."
+        ]
+      },
+      {
+        "kind": "h4",
+        "text": "Activation and optimization"
+      },
+      {
+        "kind": "ol",
+        "items": [
+          "**Optimize for qualified demo booked**, not lead-form fills - split fast-close vs enterprise motions.",
+          "**Pipe HubSpot closed-won value back via Conversions API** so Meta learns the $85K shape, not cheap leads.",
+          "**Rebuild lookalike seeds** as new wins land; reconcile Meta leads against closed-won monthly."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "outbound-cadences",
+    "category": "GTM",
+    "title": "Outbound strategy",
+    "chatTitle": "Outbound strategy",
+    "tool": "Claude",
+    "question": "Prepare an outbound strategy with 2-3 ICPs, key buying signals, and personalization criteria. Create 3 multichannel cadences (email, LinkedIn, and cold calls).",
+    "summary": "I'll pull your context from Unabyss first, then build the outbound strategy.",
+    "modelName": "Sonnet 5",
+    "modelLevel": "Medium",
+    "video": "/videos/gtm-outbound-cadences.webm",
+    "videoMs": 48540,
+    "cover": "/images/hero/cover-outbound-cadences.webp",
+    "poster": "/images/hero/filip-poster.jpg",
+    "trace": [
+      {
+        "icon": "find",
+        "text": "Finding tools",
+        "result": true,
+        "delay": 850
+      },
+      {
+        "icon": "find",
+        "text": "Finding tools",
+        "result": true,
+        "delay": 850
+      },
+      {
+        "icon": "reason",
+        "text": "Outbound only works if the ICPs and signals come from the real business, not a template. Let me pull that first.",
+        "delay": 1100
+      },
+      {
+        "icon": "tool",
+        "text": "Query",
+        "request": "What is Einstein AI's product, positioning, ICP, and the buyers we sell to?",
+        "delay": 1450
+      },
+      {
+        "icon": "tool",
+        "text": "Agentic query",
+        "request": "What buying signals show a mid-market company (200-2,000 employees, VP Talent buyer) is eager to buy AI candidate screening? Include ATS usage, hiring surges, compliance concerns, and negative signals that disqualify a prospect.",
+        "delay": 1500
+      },
+      {
+        "icon": "tool",
+        "text": "Agentic query read",
+        "resultText": "pending",
+        "polling": true,
+        "delay": 4200
+      },
+      {
+        "icon": "tool",
+        "text": "Agentic query read",
+        "resultText": "pending",
+        "polling": true,
+        "delay": 5000
+      },
+      {
+        "icon": "tool",
+        "text": "Agentic query read",
+        "resultText": "completed",
+        "delay": 1400
+      }
+    ],
+    "answerBlocks": [
+      {
+        "kind": "h3",
+        "text": "Einstein AI - outbound strategy"
+      },
+      {
+        "kind": "h4",
+        "text": "Ideal customer profiles"
+      },
+      {
+        "kind": "ul",
+        "items": [
+          "**ICP 1 - volume-overwhelmed talent team** (primary): VP Talent, 200-800 employees, 80-150+ hires/year, recruiters screening 60-70% of the week. Fastest close on Greenhouse.",
+          "**ICP 2 - scaling growth company** (secondary): VP People post-funding with a hiring surge and no time to add recruiters.",
+          "**ICP 3 - compliance-conscious employer** (higher ACV): risk-aware HR needing bias audit, audit logs, and SOC 2 posture."
+        ]
+      },
+      {
+        "kind": "h4",
+        "text": "Buying signals"
+      },
+      {
+        "kind": "ul",
+        "items": [
+          "**Tier A (act in 24h):** on Greenhouse, 200+ applicants per role, screening-backlog complaints, active hiring surge.",
+          "**Tier B (qualify timeline):** on iCIMS and evaluating scoring, public fair-hiring language, new VP Talent hire."
+        ]
+      },
+      {
+        "kind": "h4",
+        "text": "Disqualify or deprioritize"
+      },
+      {
+        "kind": "ul",
+        "items": [
+          "Budget freeze or hiring pause; unsupported ATS with day-1 deep integration required.",
+          "Low hiring volume, staffing agencies pre-scoring for clients, or CISO-led enterprise motions needing Type II now."
+        ]
+      },
+      {
+        "kind": "h4",
+        "text": "Multichannel cadences (~18 days each)"
+      },
+      {
+        "kind": "ol",
+        "items": [
+          "**Cadence A (ICP 1):** \"70% of your recruiters' week?\" -> scores inside Greenhouse in ~30s -> ROI break-up, with call and LinkedIn touches interleaved.",
+          "**Cadence B (ICP 2):** \"Hiring {{hiring_plan}} - who's screening it?\" -> more hires, same team -> timing check.",
+          "**Cadence C (ICP 3):** \"Why did it rank this person first?\" -> audit report + security posture -> risk-of-inaction break-up."
         ]
       }
     ]

@@ -43,8 +43,8 @@ const cards = [
   },
   {
     time: "0:60",
-    title: "One memory, built for you",
-    text: "Everything from your connected tools becomes one memory - always up to date, no upkeep.",
+    title: "Unabyss structures them",
+    text: "Everything is extracted and organized into one live context, tagged and kept current on its own.",
   },
   {
     time: "0:90",

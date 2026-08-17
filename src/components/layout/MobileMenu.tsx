@@ -1,19 +1,29 @@
 "use client";
 
-import { ArrowUpRight, LogIn, Menu, X } from "lucide-react";
+import { ArrowUpRight, ChevronDown, LogIn, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import BrandMark from "@/components/ui/BrandMark";
 
 const links = [
-  { label: "Use cases", href: "#use-cases" },
-  { label: "How it works", href: "#how-it-works" },
-  { label: "Teams", href: "#teams" },
+  {
+    label: "Use cases",
+    href: "#use-cases",
+    subLinks: [
+      { label: "Founders", href: "/unabyss-for-founders" },
+      { label: "Builders", href: "/unabyss-for-builders" },
+      { label: "Agencies", href: "/unabyss-for-agencies" },
+      { label: "GTM", href: "/unabyss-for-gtm" },
+    ],
+  },
+  { label: "How it works", href: "/how-it-works" },
+  { label: "Teams", href: "/teams" },
   { label: "Pricing", href: "/#pricing" },
 ];
 
 export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
+  const [showUseCases, setShowUseCases] = useState(false);
 
   return (
     <>
@@ -55,18 +65,55 @@ export default function MobileMenu() {
           </div>
 
           <nav className="flex flex-1 flex-col justify-center gap-1 px-6">
-            {links.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target={link.href.startsWith("http") ? "_blank" : undefined}
-                rel={link.href.startsWith("http") ? "noreferrer" : undefined}
-                onClick={() => setIsOpen(false)}
-                className="flex h-14 items-center border-b border-white/[0.06] text-[20px] font-light text-white/70 transition-colors hover:text-white"
-              >
-                {link.label}
-              </a>
-            ))}
+            {links.map((link) => {
+              const withSubLinks = "subLinks" in link && link.subLinks;
+              if (withSubLinks) {
+                return (
+                  <div key={link.label}>
+                    <button
+                      type="button"
+                      aria-expanded={showUseCases}
+                      onClick={() => setShowUseCases((current) => !current)}
+                      className="flex h-14 w-full items-center justify-between border-b border-white/[0.06] text-[20px] font-light text-white/70 transition-colors hover:text-white"
+                    >
+                      {link.label}
+                      <ChevronDown
+                        size={18}
+                        className={`shrink-0 text-white/45 transition-transform duration-200 ${
+                          showUseCases ? "rotate-180" : ""
+                        }`}
+                      />
+                    </button>
+                    {showUseCases && (
+                      <div className="flex flex-col py-2">
+                        {link.subLinks!.map((sub) => (
+                          <a
+                            key={sub.label}
+                            href={sub.href}
+                            onClick={() => setIsOpen(false)}
+                            className="flex h-11 items-center rounded-[12px] pl-4 text-[16px] font-light text-white/55 transition-colors hover:bg-white/[0.04] hover:text-white"
+                          >
+                            {sub.label}
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+              return (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target={link.href.startsWith("http") ? "_blank" : undefined}
+                  rel={link.href.startsWith("http") ? "noreferrer" : undefined}
+                  onClick={() => setIsOpen(false)}
+                  className="flex h-14 items-center border-b border-white/[0.06] text-[20px] font-light text-white/70 transition-colors hover:text-white"
+                >
+                  {link.label}
+                </a>
+              );
+            })}
           </nav>
 
           <div className="space-y-3 px-6 pb-8">

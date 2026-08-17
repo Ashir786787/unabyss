@@ -10,59 +10,81 @@ export type PricingPlan = {
   description: string;
   monthlyPrice: number;
   yearlyPrice: number;
+  perSeat?: boolean;
   features: string[];
   buttonLabel: string;
+  buttonHref?: string;
   image: StaticImageData;
   highlighted?: boolean;
   badge?: string;
+  banner?: string;
+  note?: string;
+  noteCta?: string;
+  noteAvatars?: string[];
+  amberChecks?: boolean;
 };
 
 export const pricingPlans: PricingPlan[] = [
   {
     name: "Pro",
-    description: "For people using AI across their daily work.",
-    monthlyPrice: 19,
-    yearlyPrice: 15,
-    buttonLabel: "Start with Pro",
+    description: "For individuals plugging AI into their daily work.",
+    monthlyPrice: 15,
+    yearlyPrice: 13,
+    buttonLabel: "Start 7-day free trial",
+    buttonHref: "https://app.unabyss.com/register",
+    note: "No credit card required",
     image: proImage,
-    highlighted: true,
-    badge: "Most popular",
     features: [
-      "Everything in Free",
-      "More connected sources",
-      "Extended context history",
-      "Multiple AI tools",
-      "Priority synchronization",
+      "Up to 3 connected agents via MCP",
+      "Up to 20 connected accounts",
+      "Premium usage tier",
+      "No additional costs",
+      "Free 7-day trial",
     ],
   },
   {
     name: "Max",
-    description: "For power users with larger context needs.",
-    monthlyPrice: 49,
-    yearlyPrice: 39,
-    buttonLabel: "Get Max",
+    description: "For power users who live in AI all day.",
+    monthlyPrice: 89,
+    yearlyPrice: 79,
+    buttonLabel: "Start 7-day free trial",
+    buttonHref: "https://app.unabyss.com/register",
+    note: "No credit card required",
     image: maxImage,
+    highlighted: true,
+    banner: "On the Claude Max plan? This is the pick for you.",
+    amberChecks: true,
     features: [
-      "Everything in Pro",
-      "Higher context limits",
-      "Advanced memory controls",
-      "Priority processing",
-      "Expanded integrations",
+      "Unlimited agents",
+      "Unlimited connected accounts",
+      "Multi-account support for Google apps",
+      "Unlimited usage",
+      "Early access to new features",
+      "No additional costs",
+      "Free 7-day trial",
     ],
   },
   {
     name: "Team",
-    description: "Shared context infrastructure for teams.",
-    monthlyPrice: 99,
-    yearlyPrice: 79,
-    buttonLabel: "Contact sales",
+    description: "Everything in Max, for everyone on your team.",
+    monthlyPrice: 49,
+    yearlyPrice: 39,
+    perSeat: true,
+    buttonLabel: "See the Team plan",
+    buttonHref: "/teams",
+    note: "Still unsure?",
+    noteCta: "Book a call",
+    noteAvatars: [
+      "/images/authors/filip.jpg",
+      "/images/authors/marcin.jpg",
+    ],
     image: teamImage,
     features: [
-      "Everything in Max",
-      "Team workspaces",
-      "Centralized controls",
-      "Advanced permissions",
-      "Business support",
+      "Everything in Max, for every seat",
+      "Shared team workspace",
+      "Invite teammates by email",
+      "Central seat and invoice management",
+      "Minimum 3 seats",
     ],
   },
 ];

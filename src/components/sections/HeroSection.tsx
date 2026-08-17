@@ -1,10 +1,96 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import PhBadge from "@/components/ui/PhBadge";
-import { RotatingSlot, aiLogos, aiLogosShifted, appLogos } from "@/components/ui/RotatingLogos";
 import { Marquee } from "@/components/ui/Marquee";
 import { tools } from "@/data/tools";
+
+const ROTATE_MS = 2400;
+const SWAP_MS = 380;
+
+const agents = [
+  { name: "OpenClaw", src: "/images/tools/openclaw.svg" },
+  { name: "Claude", src: "/images/tools/claude.svg" },
+  { name: "Codex", src: "/images/tools/codex.svg" },
+  { name: "Cursor", src: "/images/tools/cursor.svg" },
+  { name: "Gemini", src: "/images/tools/gemini.svg" },
+  { name: "Perplexity", src: "/images/tools/perplexity.svg" },
+  { name: "OpenCode", src: "/images/tools/opencode.svg" },
+  { name: "VS Code", src: "/images/tools/vs-code.svg" },
+  { name: "ChatGPT", src: "/images/tools/chatgpt.svg" },
+];
+
+const apps = [
+  { name: "GitHub", src: "/images/tools/github.svg" },
+  { name: "Notion", src: "/images/tools/notion.svg" },
+  { name: "Obsidian", src: "/images/tools/obsidian.svg" },
+  { name: "Slack", src: "/images/tools/slack.svg" },
+  { name: "X", src: "/images/tools/x-twitter.svg" },
+  { name: "LinkedIn", src: "/images/tools/linkedin.svg" },
+  { name: "Gmail", src: "/images/tools/gmail.svg" },
+  { name: "Drive", src: "/images/tools/google-drive.svg" },
+  { name: "Calendar", src: "/images/tools/google-calendar.svg" },
+];
+
+type RotatingSlotProps = {
+  words: { name: string; src: string }[];
+};
+
+function RotatingSlot({ words }: RotatingSlotProps) {
+  const [index, setIndex] = useState(0);
+  const [phase, setPhase] = useState<"in" | "out">("in");
+  const longest = words.reduce(
+    (longest, word) => (word.name.length > longest.length ? word.name : longest),
+    "",
+  );
+
+  useEffect(() => {
+    const swapTimers: number[] = [];
+    const id = window.setInterval(() => {
+      setPhase("out");
+      swapTimers.push(
+        window.setTimeout(() => {
+          setIndex((current) => (current + 1) % words.length);
+          setPhase("in");
+        }, SWAP_MS),
+      );
+    }, ROTATE_MS);
+
+    return () => {
+      window.clearInterval(id);
+      swapTimers.forEach((timer) => window.clearTimeout(timer));
+    };
+  }, [words.length]);
+
+  const current = words[index];
+
+  return (
+    <span
+      aria-live="polite"
+      className="relative inline-grid align-baseline whitespace-nowrap"
+    >
+      <span className="invisible col-start-1 row-start-1 inline-flex items-center gap-[0.35em] px-1">
+        <span className="inline-block h-[0.8em] w-[0.8em]" aria-hidden="true" />
+        {longest}
+      </span>
+      <span
+        className={`col-start-1 row-start-1 inline-flex items-center gap-[0.35em] px-1 tracking-tight ${
+          phase === "in" ? "v2-rotating-in" : "v2-rotating-out"
+        }`}
+      >
+        <img
+          src={current.src}
+          alt={current.name}
+          className="inline-block h-[0.8em] w-[0.8em] shrink-0 object-contain"
+          loading="lazy"
+          decoding="async"
+        />
+        <span className="sr-only">{current.name}</span>
+      </span>
+    </span>
+  );
+}
 
 export default function HeroSection() {
   return (
@@ -31,12 +117,9 @@ export default function HeroSection() {
         </div>
 
         <h1 className="v2-print-display w-full break-words leading-[1.14] text-white text-[clamp(30px,7.4vw,38px)] max-sm:max-w-[calc(100vw_-_3rem)] sm:w-auto sm:text-balance sm:text-[clamp(32px,4.8vw,60px)]">
-          Your <RotatingSlot logos={aiLogos} /> doesn&rsquo;t talk to{" "}
-          <RotatingSlot logos={aiLogosShifted} startDelay={800} />{" "}
-          <span className="text-white/45 sm:mt-2 sm:block">
-            and doesn&rsquo;t know what happens in{" "}
-            <RotatingSlot logos={appLogos} className="text-white" />
-          </span>
+          Your <RotatingSlot words={agents} /> doesn&apos;t talk to{" "}
+          <RotatingSlot words={agents} /> and doesn&apos;t know what happens in{" "}
+          <RotatingSlot words={apps} />
         </h1>
 
         <p className="mt-7 hidden max-w-[52ch] text-[15px] font-light leading-[1.7] text-white/70 sm:block sm:text-[16px]">
