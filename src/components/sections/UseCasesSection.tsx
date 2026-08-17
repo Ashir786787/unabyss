@@ -32,7 +32,7 @@ export default function UseCasesSection() {
             <a
               key={useCase.id}
               href={useCase.href}
-              className="v2-shine v2-shine--light v2-card-glass group relative col-span-1 flex min-h-[136px] flex-col justify-between gap-6 rounded-[20px] p-6 no-underline lg:col-span-5"
+              className={`v2-shine v2-shine--light v2-card-glass group relative col-span-1 flex min-h-[136px] flex-col justify-between gap-6 rounded-[20px] p-6 no-underline ${useCase.wide ? "lg:col-span-6" : "lg:col-span-5"}`}
             >
               <ArrowUpRight
                 strokeWidth={1.8}
@@ -49,15 +49,18 @@ export default function UseCasesSection() {
               </div>
 
               <div className="flex items-center gap-2">
-                {useCase.tools.map((tool) => (
-                  <span
-                    key={tool}
-                    title={tool}
-                    className="flex size-8 items-center justify-center rounded-[10px] border border-white/10 bg-white/[0.05] transition-colors group-hover:border-white/20"
-                  >
-                    <img src={tool} alt="" className="size-[18px] object-contain" loading="lazy" />
-                  </span>
-                ))}
+                {useCase.tools.map((tool) => {
+                  const toolName = tool.split("/").pop()?.replace(/\.\w+$/, "") ?? tool;
+                  return (
+                    <span
+                      key={tool}
+                      title={toolName}
+                      className="flex size-8 items-center justify-center rounded-[10px] border border-white/10 bg-white/[0.05] transition-colors group-hover:border-white/20"
+                    >
+                      <img src={tool} alt="" className="size-[18px] object-contain" loading="lazy" />
+                    </span>
+                  );
+                })}
               </div>
             </a>
           ))}

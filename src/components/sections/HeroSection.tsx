@@ -1,103 +1,17 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import PhBadge from "@/components/ui/PhBadge";
 import { Marquee } from "@/components/ui/Marquee";
 import { tools } from "@/data/tools";
 
-const ROTATE_MS = 2400;
-const SWAP_MS = 380;
-
-const agents = [
-  { name: "OpenClaw", src: "/images/tools/openclaw.svg" },
+const heroIcons = [
   { name: "Claude", src: "/images/tools/claude.svg" },
-  { name: "Codex", src: "/images/tools/codex.svg" },
-  { name: "Cursor", src: "/images/tools/cursor.svg" },
-  { name: "Gemini", src: "/images/tools/gemini.svg" },
-  { name: "Perplexity", src: "/images/tools/perplexity.svg" },
-  { name: "OpenCode", src: "/images/tools/opencode.svg" },
-  { name: "VS Code", src: "/images/tools/vs-code.svg" },
   { name: "ChatGPT", src: "/images/tools/chatgpt.svg" },
+  { name: "OpenClaw", src: "/images/tools/openclaw.svg" },
 ];
-
-const apps = [
-  { name: "GitHub", src: "/images/tools/github.svg" },
-  { name: "Notion", src: "/images/tools/notion.svg" },
-  { name: "Obsidian", src: "/images/tools/obsidian.svg" },
-  { name: "Slack", src: "/images/tools/slack.svg" },
-  { name: "X", src: "/images/tools/x-twitter.svg" },
-  { name: "LinkedIn", src: "/images/tools/linkedin.svg" },
-  { name: "Gmail", src: "/images/tools/gmail.svg" },
-  { name: "Drive", src: "/images/tools/google-drive.svg" },
-  { name: "Calendar", src: "/images/tools/google-calendar.svg" },
-];
-
-type RotatingSlotProps = {
-  words: { name: string; src: string }[];
-};
-
-function RotatingSlot({ words }: RotatingSlotProps) {
-  const [index, setIndex] = useState(0);
-  const [phase, setPhase] = useState<"in" | "out">("in");
-  const longest = words.reduce(
-    (longest, word) => (word.name.length > longest.length ? word.name : longest),
-    "",
-  );
-
-  useEffect(() => {
-    const swapTimers: number[] = [];
-    const id = window.setInterval(() => {
-      setPhase("out");
-      swapTimers.push(
-        window.setTimeout(() => {
-          setIndex((current) => (current + 1) % words.length);
-          setPhase("in");
-        }, SWAP_MS),
-      );
-    }, ROTATE_MS);
-
-    return () => {
-      window.clearInterval(id);
-      swapTimers.forEach((timer) => window.clearTimeout(timer));
-    };
-  }, [words.length]);
-
-  const current = words[index];
-
-  return (
-    <span
-      aria-live="polite"
-      className="relative inline-grid align-baseline whitespace-nowrap"
-    >
-      <span className="invisible col-start-1 row-start-1 inline-flex items-center gap-[0.35em] px-1">
-        <span className="inline-block h-[0.8em] w-[0.8em]" aria-hidden="true" />
-        {longest}
-      </span>
-      <span
-        className={`col-start-1 row-start-1 inline-flex items-center gap-[0.35em] px-1 tracking-tight ${
-          phase === "in" ? "v2-rotating-in" : "v2-rotating-out"
-        }`}
-      >
-        <img
-          src={current.src}
-          alt={current.name}
-          className="inline-block h-[0.8em] w-[0.8em] shrink-0 object-contain"
-          loading="lazy"
-          decoding="async"
-        />
-        <span className="sr-only">{current.name}</span>
-      </span>
-    </span>
-  );
-}
 
 export default function HeroSection() {
   return (
-    <section
-      id="top"
-      className="relative isolate flex min-h-[70vh] flex-col justify-center overflow-hidden px-6 pb-16 pt-36 sm:px-10 sm:pt-44 lg:px-12"
-    >
+    <section className="relative isolate flex min-h-[70vh] flex-col justify-center overflow-hidden px-6 pb-16 pt-36 sm:px-10 sm:pt-44 lg:px-12">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 -z-10"
@@ -117,14 +31,25 @@ export default function HeroSection() {
         </div>
 
         <h1 className="v2-print-display w-full break-words leading-[1.14] text-white text-[clamp(30px,7.4vw,38px)] max-sm:max-w-[calc(100vw_-_3rem)] sm:w-auto sm:text-balance sm:text-[clamp(32px,4.8vw,60px)]">
-          Your <RotatingSlot words={agents} /> doesn&apos;t talk to{" "}
-          <RotatingSlot words={agents} /> and doesn&apos;t know what happens in{" "}
-          <RotatingSlot words={apps} />
+          One memory for all your apps and AI agents{" "}
+          <span className="ml-[0.1em] inline-flex items-center gap-[0.3em] align-middle">
+            {heroIcons.map((icon) => (
+              <img
+                key={icon.name}
+                src={icon.src}
+                alt={icon.name}
+                className="inline-block h-[0.8em] w-[0.8em] shrink-0 object-contain"
+                loading="eager"
+                decoding="async"
+              />
+            ))}
+          </span>
         </h1>
 
         <p className="mt-7 hidden max-w-[52ch] text-[15px] font-light leading-[1.7] text-white/70 sm:block sm:text-[16px]">
-          Your complete context in every AI you use. Connect once and never
-          explain yourself to AI again.
+          What you tell Claude, ChatGPT already knows - Unabyss gives every AI
+          one shared memory, built from your work and the tools you use daily. No
+          re-explaining.
         </p>
 
         <div className="mt-9">
@@ -132,7 +57,7 @@ export default function HeroSection() {
             href="https://app.unabyss.com/register"
             target="_blank"
             rel="noreferrer"
-            className="group inline-flex h-12 items-center gap-1.5 rounded-full bg-white px-6 text-[14px] font-medium text-black transition-all hover:bg-white/90"
+            className="group inline-flex h-12 items-center gap-1.5 rounded-full bg-white px-6 text-[14px] font-medium text-black transition-all hover:bg-white/90 sm:inline-flex sm:w-auto"
           >
             Start free now
             <ArrowUpRight

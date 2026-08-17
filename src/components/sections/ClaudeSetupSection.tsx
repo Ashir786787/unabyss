@@ -21,7 +21,7 @@ export default function ClaudeSetupSection() {
   };
 
   return (
-    <section className="relative px-6 py-24 sm:px-10 sm:py-32 lg:px-12">
+    <section className="relative hidden px-6 py-24 sm:block sm:px-10 sm:py-32 lg:px-12">
       <div className="relative mx-auto max-w-[1100px]">
         <Reveal className="mb-14 flex flex-col items-center text-center">
           <span className="v2-print-label">Connect</span>

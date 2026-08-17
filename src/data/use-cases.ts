@@ -4,6 +4,7 @@ export type UseCase = {
   description: string;
   href: string;
   tools: string[];
+  wide?: boolean;
 };
 
 export const useCases: UseCase[] = [
@@ -52,6 +53,7 @@ export const useCases: UseCase[] = [
     description:
       "Pipeline, accounts, and call notes unified, so outreach and follow-ups write themselves.",
     href: "/unabyss-for-gtm",
+    wide: true,
     tools: [
       "/images/tools/hubspot.svg",
       "/images/tools/pipedrive.svg",

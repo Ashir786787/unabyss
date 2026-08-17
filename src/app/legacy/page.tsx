@@ -15,5 +15,9 @@ export const metadata: Metadata = {
 };
 
 export default function LegacyPage() {
-  return <LegacySection />;
+  return (
+    <div className="legacy">
+      <LegacySection />
+    </div>
+  );
 }

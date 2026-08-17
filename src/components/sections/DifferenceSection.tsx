@@ -82,17 +82,7 @@ export default function DifferenceSection() {
 
               <div className="ww-stage ww-stage--noted">
                 <div className="ww-window ww-window--cold">
-                  <ChatMock title="Client follow-up">
-                    <div className="flex flex-col gap-[1.6cqw]">
-                      <p className="self-end max-w-[80%] rounded-[1.6cqw] rounded-br-[0.5cqw] border border-white/10 bg-white/[0.06] px-[1.5cqw] py-[1cqw] text-[1.5cqw] font-light leading-[1.5] text-[#ecebe4]">
-                        Can you prepare the follow-up for this client?
-                      </p>
-                      <p className="self-start max-w-[80%] rounded-[1.6cqw] rounded-bl-[0.5cqw] border border-white/10 bg-white/[0.06] px-[1.5cqw] py-[1cqw] text-[1.5cqw] font-light leading-[1.5] text-[#ecebe4]">
-                        Sure. Can you share the client name and the latest
-                        conversation?
-                      </p>
-                    </div>
-                  </ChatMock>
+                  <ChatMock title="Client follow-up" />
                 </div>
               </div>
 
